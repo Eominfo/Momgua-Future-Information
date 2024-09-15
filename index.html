@@ -9,14 +9,16 @@
             font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* 텍스트를 위쪽으로 정렬 */
             height: 100vh;
             margin: 0;
             background-color: #fff;
             color: #000;
+            flex-direction: column;
         }
         .container {
             text-align: center;
+            margin-top: 50px; /* 텍스트를 좀 더 위로 올림 */
         }
         h1 {
             font-size: 72px; /* 글자 크기를 두 배로 */
@@ -25,7 +27,7 @@
         }
         p {
             font-size: 32px; /* 글자 크기를 두 배로 */
-            margin: 50px 0; /* 간격을 늘리기 위해 margin 조정 */
+            margin: 20px 0;
             color: red;
         }
         .click-button {
@@ -34,6 +36,8 @@
             text-decoration: none;
             border-bottom: 1px solid black;
             cursor: pointer;
+            margin-top: auto; /* 버튼을 아래로 보내기 */
+            margin-bottom: 50px; /* 아래쪽 여백 추가 */
         }
         .click-button:hover {
             color: #007BFF;
@@ -46,8 +50,9 @@
     <div class="container">
         <h1>몸과 에옴<br>미래 정보 조회 서비스</h1>
         <p>※ 신청한 당사자만 열람 가능 ※</p>
-        <a class="click-button" href="nda.html">참가하기 클릭</a>
     </div>
+
+    <a class="click-button" href="nda.html">참가하기 클릭</a>
 
 </body>
 </html>
