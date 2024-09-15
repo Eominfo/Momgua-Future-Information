@@ -18,14 +18,6 @@ body {
     overflow-y: auto;
 }
 
-/* 상단 부분 숨기기 */
-.header {
-    position: absolute;
-    top: -150px; /* 상단에서 사라지게 할 높이 */
-    left: 0;
-    width: 100%;
-}
-
 /* 일반 스마트폰에 맞는 패딩 설정 (360px ~ 768px 해상도) */
 @media (max-width: 768px) {
     body {
@@ -151,7 +143,7 @@ body {
 <body>
 
     <div class="container">
-        <h1 class="header">비밀유지서약서(프로젝트 참여자)</h1>
+        <h1>비밀유지서약서(프로젝트 참여자)</h1>
         <p>
             본인은 버징가 ‘운명적 데이터’ 전시에 입장하여 현재 작품을 관람 중인 관람자로서, 버징가에서 주관하는 ‘운명적 데이터’ 전시 작품 중 [미래 정보 조회 서비스] 프로젝트에 참여함에 있어, 몸과 에옴의 미래 개인정보의 보호와 관련한 규정 등을 충분히 설명받고 이해하였기에 다음 사항을 준수할 것을 서약합니다.
         </p>
@@ -162,7 +154,7 @@ body {
             2. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는 직업, 인간 관계, 사건, 사고, 위치 등을 경우를 몸과 에옴의 사전 서면 동의 없이는 어떠한 방법으로도 제3자에게 제공하거나 누설하지 않으며, 부정한 목적으로 공개하거나 사용하지 않을 것을 서약합니다.
         </p>
         <p>
-            위 서약한 사항을 위반할 경우 관련 법규에 의한 민·형사상 책임을 감수할 것을 서약합니다. 
+            위 서약한 사항을 위반할 경우 관련 법규에 의한 민·형사상 책임을 감수할 것을 서약합니다.
         </p>
         <p style="margin-bottom: 60px;">
            (위 내용을 확인하고 이해하였으며, 이에 서명함)
@@ -261,4 +253,60 @@ body {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        //
+        // 서명 그리기 기능 (터치 지원)
+        let drawing = false;
+
+        // 마우스 이벤트
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        // 터치 이벤트
+        canvas.addEventListener('touchstart', (e) => {
+            drawing = true;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (drawing) {
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            drawing = false;
+        });
+
+        // 이전 버튼 (첫 화면으로 이동)
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 첫 화면으로 이동
+        });
+
+        // 다음 버튼 (다음 페이지로 이동)
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'nextpage.html'; // 다음 페이지로 이동
+        });
+    </script>
+</body>
+</html>
