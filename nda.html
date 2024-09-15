@@ -245,14 +245,12 @@
             drawing = false;
         });
 
-        // 이전 버튼
+        // 이전 버튼 (첫 화면으로 이동)
         document.getElementById('previous-btn').addEventListener('click', () => {
-            dateDisplay.textContent = '';
-            signatureDisplay.innerHTML = '';
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            window.location.href = 'index.html'; // 첫 화면으로 이동
         });
 
-        // 다음 버튼
+        // 다음 버튼 (다음 페이지로 이동)
         document.getElementById('next-btn').addEventListener('click', () => {
             window.location.href = 'nextpage.html'; // 다음 페이지로 이동
         });
