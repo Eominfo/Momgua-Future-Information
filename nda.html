@@ -1,95 +1,286 @@
-<!-- 서명하기 버튼 -->
-<button id="signatureBtn">서명하기 (클릭)</button>
-<div id="signaturePopup" class="popup-window">
-  <canvas id="signatureCanvas" width="300" height="200" style="border:1px solid #000;"></canvas>
-  <br>
-  <button id="clearSignature">지우기</button>
-  <button id="saveSignature">완료</button>
-</div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀유지서약서</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
 
-<!-- 팝업 관련 스타일 (앞서 작성한 스타일에 추가) -->
-<style>
-  .popup-window {
-    display: none; /* 기본적으로 숨겨짐 */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1000;
-  }
-</style>
+        .container {
+            width: 50%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            line-height: 1.8;
+        }
 
-<!-- 서명하기 관련 JavaScript -->
-<script>
-  let isDrawing = false;
-  let ctx = document.getElementById('signatureCanvas').getContext('2d');
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-  // 마우스 입력 처리
-  document.getElementById('signatureCanvas').addEventListener('mousedown', startDrawing);
-  document.getElementById('signatureCanvas').addEventListener('mousemove', draw);
-  document.getElementById('signatureCanvas').addEventListener('mouseup', stopDrawing);
-  document.getElementById('signatureCanvas').addEventListener('mouseout', stopDrawing);
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
 
-  // 터치 입력 처리
-  document.getElementById('signatureCanvas').addEventListener('touchstart', startDrawingTouch);
-  document.getElementById('signatureCanvas').addEventListener('touchmove', drawTouch);
-  document.getElementById('signatureCanvas').addEventListener('touchend', stopDrawingTouch);
-  
-  function startDrawing(e) {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
-  }
+        .clickable {
+            cursor: pointer;
+            font-weight: bold;
+            color: black;
+            text-decoration: underline;
+            text-align: center;
+            display: block;
+        }
 
-  function draw(e) {
-    if (!isDrawing) return;
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-  }
+        #date-display, #signature-display {
+            margin-top: 10px;
+            text-align: center;
+        }
 
-  function stopDrawing() {
-    isDrawing = false;
-  }
+        .bottom-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
 
-  function startDrawingTouch(e) {
-    e.preventDefault(); // 기본 터치 동작 방지 (스크롤 등)
-    isDrawing = true;
-    const touch = e.touches[0];
-    const rect = e.target.getBoundingClientRect();
-    ctx.beginPath();
-    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-  }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
 
-  function drawTouch(e) {
-    e.preventDefault();
-    if (!isDrawing) return;
-    const touch = e.touches[0];
-    const rect = e.target.getBoundingClientRect();
-    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
-    ctx.stroke();
-  }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 1px solid #000;
+            padding: 20px;
+            z-index: 1000;
+        }
 
-  function stopDrawingTouch() {
-    isDrawing = false;
-  }
+        .popup input {
+            font-size: 16px;
+            padding: 10px;
+        }
 
-  // 지우기 버튼
-  document.getElementById('clearSignature').addEventListener('click', function() {
-    ctx.clearRect(0, 0, document.getElementById('signatureCanvas').width, document.getElementById('signatureCanvas').height);
-  });
+        .popup-buttons {
+            margin-top: 10px;
+        }
 
-  // 완료 버튼
-  document.getElementById('saveSignature').addEventListener('click', function() {
-    const signatureImage = document.getElementById('signatureCanvas').toDataURL('image/png');
-    document.getElementById('signatureBtn').textContent = '서명 완료 (클릭)';
-    document.getElementById('signaturePopup').style.display = 'none'; // 팝업 닫기
-  });
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 500;
+        }
 
-  // 서명 팝업 열기
-  document.getElementById('signatureBtn').addEventListener('click', function() {
-    document.getElementById('signaturePopup').style.display = 'block'; // 팝업 열기
-  });
-</script>
+        /* 반응형 레이아웃 */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+
+            .bottom-buttons {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>비밀유지서약서(프로젝트 참여자)</h1>
+        <p>
+            본인은 버징가 ‘운명적 데이터’ 전시에 입장하여 현재 작품을 관람 중인 관람자로서, 버징가에서 주관하는 ‘운명적 데이터’ 전시 작품 중 [미래 정보 조회 서비스] 프로젝트에 참여함에 있어, 몸과 에옴의 미래 개인정보의 보호와 관련한 규정 등을 충분히 설명받고 이해하였기에 다음 사항을 준수할 것을 서약합니다.
+        </p>
+        <p>
+            위 내용을 확인하고 이해하였으며, 이에 서명함을 확인합니다.
+        </p>
+
+        <p class="clickable" id="date-click">날짜 (클릭)</p>
+        <p id="date-display"></p>
+
+        <p class="clickable" id="signature-click">서명하기 (클릭)</p>
+        <p id="signature-display"></p>
+
+        <div class="bottom-buttons">
+            <button id="previous-btn">이전</button>
+            <button id="next-btn">다음</button>
+        </div>
+    </div>
+
+    <!-- 날짜 입력 팝업 -->
+    <div id="date-popup" class="popup">
+        <h2>날짜 입력</h2>
+        <input type="date" id="date-input">
+        <div class="popup-buttons">
+            <button id="date-complete">완료</button>
+        </div>
+    </div>
+
+    <!-- 서명 팝업 -->
+    <div id="signature-popup" class="popup">
+        <h2>서명하기</h2>
+        <canvas id="signature-canvas" width="300" height="150"></canvas>
+        <div class="popup-buttons">
+            <button id="signature-complete">완료</button>
+            <button id="signature-clear">서명 초기화</button>
+        </div>
+    </div>
+
+    <!-- 배경 어둡게 하는 오버레이 -->
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        // 팝업 열고 닫기 기능
+        const dateClick = document.getElementById('date-click');
+        const datePopup = document.getElementById('date-popup');
+        const dateCompleteBtn = document.getElementById('date-complete');
+        const dateDisplay = document.getElementById('date-display');
+        const dateInput = document.getElementById('date-input');
+
+        const signatureClick = document.getElementById('signature-click');
+        const signaturePopup = document.getElementById('signature-popup');
+        const signatureCompleteBtn = document.getElementById('signature-complete');
+        const signatureDisplay = document.getElementById('signature-display');
+        const signatureClearBtn = document.getElementById('signature-clear');
+        const canvas = document.getElementById('signature-canvas');
+        const ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('overlay');
+
+        // 팝업 열기와 닫기 함수
+        function openPopup(popup) {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup(popup) {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        // 날짜 클릭 이벤트
+        dateClick.addEventListener('click', () => {
+            openPopup(datePopup);
+        });
+
+        dateCompleteBtn.addEventListener('click', () => {
+            const dateValue = dateInput.value;
+            if (dateValue) {
+                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
+            }
+            closePopup(datePopup);
+        });
+
+        // 서명 클릭 이벤트
+        signatureClick.addEventListener('click', () => {
+            openPopup(signaturePopup);
+        });
+
+        signatureCompleteBtn.addEventListener('click', () => {
+            const signatureImage = canvas.toDataURL();
+            const img = new Image();
+            img.src = signatureImage;
+            signatureDisplay.innerHTML = '';
+            signatureDisplay.appendChild(img);
+            closePopup(signaturePopup);
+        });
+
+        signatureClearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // 서명 그리기 기능 (터치 지원)
+        let drawing = false;
+
+        // 마우스 이벤트
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        // 터치 이벤트
+        canvas.addEventListener('touchstart', (e) => {
+            drawing = true;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (drawing) {
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            drawing = false;
+        });
+
+        // 이전 버튼 (첫 화면으로 이동)
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 첫 화면으로 이동
+        });
+
+        // 다음 버튼 (다음 페이지로 이동)
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'nextpage.html'; // 다음 페이지로 이동
+        });
+    </script>
+</body>
+</html>
