@@ -102,6 +102,31 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 500;
         }
+
+        /* 반응형 레이아웃 적용 */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* 작은 화면에서는 너비를 더 넓게 설정 */
+            }
+
+            h1 {
+                font-size: 28px; /* 작은 화면에서 제목 크기 조정 */
+            }
+
+            p {
+                font-size: 14px; /* 작은 화면에서 본문 크기 조정 */
+            }
+
+            button {
+                font-size: 16px; /* 작은 화면에서 버튼 크기 조정 */
+            }
+
+            .bottom-buttons {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,15 +165,14 @@
         </div>
     </div>
 
-<!-- 날짜 입력 팝업 -->
-<div id="date-popup" class="popup">
-    <h2>날짜 입력</h2>
-    <input type="date" id="date-input">
-    <div class="popup-buttons">
-        <button id="date-complete">완료</button>
+    <!-- 날짜 입력 팝업 -->
+    <div id="date-popup" class="popup">
+        <h2>날짜 입력</h2>
+        <input type="date" id="date-input">
+        <div class="popup-buttons">
+            <button id="date-complete">완료</button>
+        </div>
     </div>
-</div>
-
 
     <!-- 서명 팝업 -->
     <div id="signature-popup" class="popup">
@@ -242,18 +266,4 @@
         });
 
         canvas.addEventListener('mouseleave', () => {
-            drawing = false;
-        });
-
-        // 이전 버튼 (첫 화면으로 이동)
-        document.getElementById('previous-btn').addEventListener('click', () => {
-            window.location.href = 'index.html'; // 첫 화면으로 이동
-        });
-
-        // 다음 버튼 (다음 페이지로 이동)
-        document.getElementById('next-btn').addEventListener('click', () => {
-            window.location.href = 'nextpage.html'; // 다음 페이지로 이동
-        });
-    </script>
-</body>
-</html>
+            drawing =
