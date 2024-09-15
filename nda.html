@@ -257,21 +257,3 @@
     </script>
 </body>
 </html>
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (drawing) {
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
-            }
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            drawing = false;
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            drawing = false;
-        });
-
-        // 이전 버튼
-        document.getElementById('previous-btn').add
