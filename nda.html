@@ -1,11 +1,13 @@
-<!-- 버튼 -->
-<button id="popupBtn">날짜 (클릭)</button>
-<div id="popup" class="popup-window">
-  <input type="text" id="dateInput" placeholder="날짜 입력">
-  <button id="completeBtn">완료</button>
+<!-- 서명하기 버튼 -->
+<button id="signatureBtn">서명하기 (클릭)</button>
+<div id="signaturePopup" class="popup-window">
+  <canvas id="signatureCanvas" width="300" height="200" style="border:1px solid #000;"></canvas>
+  <br>
+  <button id="clearSignature">지우기</button>
+  <button id="saveSignature">완료</button>
 </div>
 
-<!-- 팝업 관련 스타일 -->
+<!-- 팝업 관련 스타일 (앞서 작성한 스타일에 추가) -->
 <style>
   .popup-window {
     display: none; /* 기본적으로 숨겨짐 */
@@ -20,15 +22,74 @@
   }
 </style>
 
-<!-- JavaScript 팝업 기능 -->
+<!-- 서명하기 관련 JavaScript -->
 <script>
-  document.getElementById('popupBtn').addEventListener('click', function() {
-    document.getElementById('popup').style.display = 'block'; // 팝업 열기
+  let isDrawing = false;
+  let ctx = document.getElementById('signatureCanvas').getContext('2d');
+
+  // 마우스 입력 처리
+  document.getElementById('signatureCanvas').addEventListener('mousedown', startDrawing);
+  document.getElementById('signatureCanvas').addEventListener('mousemove', draw);
+  document.getElementById('signatureCanvas').addEventListener('mouseup', stopDrawing);
+  document.getElementById('signatureCanvas').addEventListener('mouseout', stopDrawing);
+
+  // 터치 입력 처리
+  document.getElementById('signatureCanvas').addEventListener('touchstart', startDrawingTouch);
+  document.getElementById('signatureCanvas').addEventListener('touchmove', drawTouch);
+  document.getElementById('signatureCanvas').addEventListener('touchend', stopDrawingTouch);
+  
+  function startDrawing(e) {
+    isDrawing = true;
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+  }
+
+  function startDrawingTouch(e) {
+    e.preventDefault(); // 기본 터치 동작 방지 (스크롤 등)
+    isDrawing = true;
+    const touch = e.touches[0];
+    const rect = e.target.getBoundingClientRect();
+    ctx.beginPath();
+    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  }
+
+  function drawTouch(e) {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const touch = e.touches[0];
+    const rect = e.target.getBoundingClientRect();
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+  }
+
+  function stopDrawingTouch() {
+    isDrawing = false;
+  }
+
+  // 지우기 버튼
+  document.getElementById('clearSignature').addEventListener('click', function() {
+    ctx.clearRect(0, 0, document.getElementById('signatureCanvas').width, document.getElementById('signatureCanvas').height);
   });
 
-  document.getElementById('completeBtn').addEventListener('click', function() {
-    let dateValue = document.getElementById('dateInput').value;
-    document.getElementById('popupBtn').textContent = dateValue + ' (클릭)'; // 날짜 표시
-    document.getElementById('popup').style.display = 'none'; // 팝업 닫기
+  // 완료 버튼
+  document.getElementById('saveSignature').addEventListener('click', function() {
+    const signatureImage = document.getElementById('signatureCanvas').toDataURL('image/png');
+    document.getElementById('signatureBtn').textContent = '서명 완료 (클릭)';
+    document.getElementById('signaturePopup').style.display = 'none'; // 팝업 닫기
+  });
+
+  // 서명 팝업 열기
+  document.getElementById('signatureBtn').addEventListener('click', function() {
+    document.getElementById('signaturePopup').style.display = 'block'; // 팝업 열기
   });
 </script>
