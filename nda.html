@@ -88,10 +88,6 @@
             padding: 10px;
         }
 
-        .popup canvas {
-            border: 1px solid black;
-        }
-
         .popup-buttons {
             margin-top: 10px;
         }
@@ -105,25 +101,6 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: 500;
-        }
-
-        /* 반응형 레이아웃 설정 */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%; /* 작은 화면에서는 너비를 더 넓게 설정 */
-            }
-
-            h1 {
-                font-size: 28px; /* 작은 화면에서 제목 크기 조정 */
-            }
-
-            p {
-                font-size: 14px; /* 작은 화면에서 본문 크기 조정 */
-            }
-
-            button {
-                font-size: 16px; /* 버튼 크기 조정 */
-            }
         }
     </style>
 </head>
@@ -171,6 +148,7 @@
         <button id="date-complete">완료</button>
     </div>
 </div>
+
 
     <!-- 서명 팝업 -->
     <div id="signature-popup" class="popup">
@@ -244,26 +222,44 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // 서명 그리기 기능 (터치와 마우스 모두 지원)
+        // 서명 그리기 기능
         let drawing = false;
 
-        function getPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX || e.touches[0].clientX;
-            const y = e.clientY || e.touches[0].clientY;
-            return {
-                x: x - rect.left,
-                y: y - rect.top
-            };
-        }
-
-        function startDrawing(e) {
+        // 서명을 마우스 또는 터치로 받을 수 있도록 함
+        canvas.addEventListener('mousedown', (e) => {
             drawing = true;
-            const pos = getPos(e);
-            ctx.moveTo(pos.x, pos.y);
-        }
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
 
-        function draw(e) {
-            if (!drawing) return;
-            const pos = getPos(e);
-            ctx.lineTo(pos.x, pos
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            drawing = true;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (drawing) {
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('touchend',
