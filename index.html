@@ -8,26 +8,30 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
+      background-color: #f0f0f0; /* 기존 배경색을 유지 */
+    }
+
+    .container {
+      position: relative;
+      top: 50px;
     }
 
     h1 {
-      font-size: 4em; /* 두 배로 키운 글자 크기 */
-      margin-top: 50px;
+      font-size: 2.8em; /* 글자 크기를 두 배로 */
     }
 
-    p {
-      font-size: 2.5em; /* 두 배로 키운 글자 크기 */
-      margin-bottom: 50px; /* 간격을 늘리기 위해 추가한 여백 */
+    .subtext {
+      font-size: 1.6em; /* 글자 크기 두 배로 */
+      margin-top: 40px;
     }
 
-    .spaced {
-      margin-bottom: 100px; /* 간격 더 넓히기 */
+    .button-container {
+      margin-top: 150px; /* "참가하기 클릭"을 더 아래로 */
     }
 
     .button {
-      display: inline-block;
-      padding: 20px 40px;
-      font-size: 2em;
+      font-size: 1.4em; /* 버튼 텍스트도 조금 키움 */
+      padding: 15px 30px;
       background-color: #4CAF50;
       color: white;
       text-decoration: none;
@@ -38,12 +42,14 @@
 </head>
 <body>
 
-  <h1>몸과 에옴 미래 정보 조회 서비스</h1>
+  <div class="container">
+    <h1>몸과 에옴 미래 정보 조회 서비스</h1>
+    <p class="subtext">참가하기 클릭</p>
+  </div>
 
-  <p class="spaced">참가하기 클릭</p>
-
-  <a href="#" class="button">참가하기</a>
+  <div class="button-container">
+    <a href="#" class="button">참가하기</a>
+  </div>
 
 </body>
 </html>
-
