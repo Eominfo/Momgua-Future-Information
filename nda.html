@@ -17,12 +17,11 @@
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
-            text-align: left;
-            margin: 0 auto;
+            width: 60%; /* 본문 너비를 적절하게 설정 */
+            max-width: 700px; /* 최대 너비 */
+            margin: 0 auto; /* 중앙으로 정렬 */
+            text-align: left; /* 본문은 여전히 왼쪽 정렬 */
             line-height: 1.8;
-            word-wrap: break-word; /* 텍스트가 들쑥날쑥하지 않도록 단어가 넘어가면 자동 줄바꿈 */
         }
 
         h1 {
@@ -35,7 +34,7 @@
         p {
             font-size: 16px;
             margin-bottom: 20px;
-            text-align: justify; /* 오른쪽이 들쑥날쑥하지 않도록 수정 */
+            text-align: justify; /* 들쑥날쑥한 부분 제거 */
         }
 
         .clickable {
@@ -252,5 +251,4 @@
         // 이전 버튼
         document.getElementById('previous-btn').addEventListener('click', () => {
             dateDisplay.textContent = '';
-            signatureDisplay.innerHTML = '';
-            ctx
+            signatureDisplay.innerHTML =
