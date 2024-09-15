@@ -97,4 +97,92 @@
     <p>1. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는<br>
        작업, 인간 관계, 사건, 사고, 위치 등을 비밀로 유지하고, 이와 관련된 법규 및 방침 등을 준수하겠습니다.</p>
 
-    <p>2. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는<br
+    <p>2. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는<br>
+       작업, 인간 관계, 사건, 사고, 위치 등을 몸과 에옴의 사전 동의 없이는 어떠한 방법으로도 제3자에게<br>
+       제공하거나 누설하지 않으며, 부정한 목적으로 공개하거나 사용하지 않을 것을 서약합니다.</p>
+
+    <p>위 서약한 사항을 위반할 경우 관련 법규에 의한 민·형사상 책임을 감수할 것을 서약합니다.</p>
+
+    <p>(위 내용을 확인하고 이해하였으며, 이에 서명함)</p>
+
+    <p>날짜 <span id="date-click" class="clickable">(클릭)</span></p>
+    <p id="date-display"></p>
+
+    <p>서명하기 <span id="signature-click" class="clickable">(클릭)</span></p>
+    <p id="signature-display"></p>
+
+    <div class="buttons">
+        <button id="previous-btn">이전</button>
+        <button id="next-btn">다음</button>
+    </div>
+
+    <!-- 날짜 입력 팝업 -->
+    <div id="date-popup" class="popup">
+        <h2>날짜 입력</h2>
+        <input type="date" id="date-input">
+        <div class="popup-buttons">
+            <button id="date-complete">완료</button>
+        </div>
+    </div>
+
+    <!-- 서명 팝업 -->
+    <div id="signature-popup" class="popup">
+        <h2>서명하기</h2>
+        <canvas id="signature-canvas" width="300" height="150"></canvas>
+        <div class="popup-buttons">
+            <button id="signature-complete">완료</button>
+            <button id="signature-clear">서명 초기화</button>
+        </div>
+    </div>
+
+    <!-- 배경 어둡게 하는 오버레이 -->
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        // 팝업 열고 닫기 기능
+        const dateClick = document.getElementById('date-click');
+        const datePopup = document.getElementById('date-popup');
+        const dateCompleteBtn = document.getElementById('date-complete');
+        const dateDisplay = document.getElementById('date-display');
+        const dateInput = document.getElementById('date-input');
+
+        const signatureClick = document.getElementById('signature-click');
+        const signaturePopup = document.getElementById('signature-popup');
+        const signatureCompleteBtn = document.getElementById('signature-complete');
+        const signatureDisplay = document.getElementById('signature-display');
+        const signatureClearBtn = document.getElementById('signature-clear');
+        const canvas = document.getElementById('signature-canvas');
+        const ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('overlay');
+
+        // 팝업 열기와 닫기 함수
+        function openPopup(popup) {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup(popup) {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        // 날짜 클릭 이벤트
+        dateClick.addEventListener('click', () => {
+            openPopup(datePopup);
+        });
+
+        dateCompleteBtn.addEventListener('click', () => {
+            const dateValue = dateInput.value;
+            if (dateValue) {
+                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
+            }
+            closePopup(datePopup);
+        });
+
+        // 서명 클릭 이벤트
+        signatureClick.addEventListener('click', () => {
+            openPopup(signaturePopup);
+        });
+
+        signatureCompleteBtn.addEventListener('click', () => {
+            const signatureImage
