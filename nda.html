@@ -131,10 +131,13 @@
             본인은 버징가 ‘운명적 데이터’ 전시에 입장하여 현재 작품을 관람 중인 관람자로서, 버징가에서 주관하는 ‘운명적 데이터’ 전시 작품 중 [미래 정보 조회 서비스] 프로젝트에 참여함에 있어, 몸과 에옴의 미래 개인정보의 보호와 관련한 규정 등을 충분히 설명받고 이해하였기에 다음 사항을 준수할 것을 서약합니다.
         </p>
         <p>
-            1. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수 있는 작업, 인간 관계, 사건, 사고, 위치 등을 비밀로 유지하며, 이와 관련된 법규와 방침을 준수하겠습니다. 본 정보는 외부로 유출되거나 부정한 목적으로 사용되지 않을 것입니다.
+            1. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는 직업, 인간 관계, 사건, 사고, 위치 등을 비밀로 유지하고, 이와 관련된 법규 및 방침 등을 준수하겠습니다.
         </p>
         <p>
-            2. 본인은, 몸과 에옴의 사전 동의 없이 어떠한 방법으로도 해당 정보를 제3자에게 제공하거나 누설하지 않을 것을 서약하며, 관련 법규에 의한 민·형사상 책임을 감수할 것을 동의합니다.
+            2. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는 직업, 인간 관계, 사건, 사고, 위치 등을 경우를 몸과 에옴의 사전 서면 동의 없이는 어떠한 방법으로도 제3자에게 제공하거나 누설하지 않으며, 부정한 목적으로 공개하거나 사용하지 않을 것을 서약합니다.
+        </p>
+        <p>
+            위 서약한 사항을 위반할 경우 관련 법규에 의한 민·형사상 책임을 감수할 것을 서약합니다. 
         </p>
         <p>
             위 내용을 확인하고 이해하였으며, 이에 서명함을 확인합니다.
@@ -233,43 +236,60 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // 서명 그리기 기능 (터치 및 마우스 지원)
-        let isDrawing = false;
+        // 서명 그리기 기능 (터치 지원)
+        let drawing = false;
 
-        // 마우스 입력 처리
+        // 마우스 이벤트
         canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            ctx.beginPath();
+            drawing = true;
             ctx.moveTo(e.offsetX, e.offsetY);
         });
 
         canvas.addEventListener('mousemove', (e) => {
-            if (!isDrawing) return;
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
         });
 
         canvas.addEventListener('mouseup', () => {
-            isDrawing = false;
+            drawing = false;
         });
 
         canvas.addEventListener('mouseleave', () => {
-            isDrawing = false;
+            drawing = false;
         });
 
-        // 터치 입력 처리
+        // 터치 이벤트
         canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // 기본 터치 동작 방지
-            isDrawing = true;
+            drawing = true;
             const touch = e.touches[0];
             const rect = canvas.getBoundingClientRect();
-            ctx.beginPath();
             ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
         });
 
         canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            if (!isDrawing) return;
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            ctx
+            if (drawing) {
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            drawing = false;
+        });
+
+        // 이전 버튼 (첫 화면으로 이동)
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 첫 화면으로 이동
+        });
+
+        // 다음 버튼 (다음 페이지로 이동)
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'nextpage.html'; // 다음 페이지로 이동
+        });
+    </script>
+</body>
+</html>
