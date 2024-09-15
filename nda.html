@@ -17,10 +17,10 @@
         }
 
         .container {
-            width: 50%; /* 본문 너비를 50%로 설정 */
-            max-width: 600px; /* 최대 너비를 600px로 제한 */
-            margin: 0 auto; /* 중앙에 위치하도록 조정 */
-            text-align: left; /* 본문은 여전히 왼쪽 정렬 */
+            width: 50%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
             line-height: 1.8;
         }
 
@@ -34,7 +34,7 @@
         p {
             font-size: 16px;
             margin-bottom: 20px;
-            text-align: justify; /* 들쑥날쑥한 부분 제거 */
+            text-align: justify;
         }
 
         .clickable {
@@ -86,10 +86,6 @@
         .popup input {
             font-size: 16px;
             padding: 10px;
-        }
-
-        .popup canvas {
-            border: 1px solid black;
         }
 
         .popup-buttons {
@@ -233,3 +229,33 @@
             drawing = true;
             ctx.moveTo(e.offsetX, e.offsetY);
         });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        // 이전 버튼
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            dateDisplay.textContent = '';
+            signatureDisplay.innerHTML = '';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // 다음 버튼
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'nextpage.html'; // 다음 페이지로 이동
+        });
+    </script>
+</body>
+</html>
