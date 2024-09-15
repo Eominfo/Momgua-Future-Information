@@ -102,6 +102,25 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 500;
         }
+
+        /* 반응형 설정: 모바일과 태블릿에서 깨지지 않게 함 */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* 작은 화면에서 너비를 늘림 */
+            }
+
+            h1 {
+                font-size: 28px; /* 작은 화면에서 제목 크기를 줄임 */
+            }
+
+            p {
+                font-size: 14px; /* 본문 크기를 줄임 */
+            }
+
+            button {
+                font-size: 16px; /* 버튼 크기를 줄임 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,15 +159,14 @@
         </div>
     </div>
 
-<!-- 날짜 입력 팝업 -->
-<div id="date-popup" class="popup">
-    <h2>날짜 입력</h2>
-    <input type="date" id="date-input">
-    <div class="popup-buttons">
-        <button id="date-complete">완료</button>
+    <!-- 날짜 입력 팝업 -->
+    <div id="date-popup" class="popup">
+        <h2>날짜 입력</h2>
+        <input type="date" id="date-input">
+        <div class="popup-buttons">
+            <button id="date-complete">완료</button>
+        </div>
     </div>
-</div>
-
 
     <!-- 서명 팝업 -->
     <div id="signature-popup" class="popup">
@@ -225,7 +243,6 @@
         // 서명 그리기 기능
         let drawing = false;
 
-        // 서명을 마우스 또는 터치로 받을 수 있도록 함
         canvas.addEventListener('mousedown', (e) => {
             drawing = true;
             ctx.moveTo(e.offsetX, e.offsetY);
@@ -246,20 +263,5 @@
             drawing = false;
         });
 
-        canvas.addEventListener('touchstart', (e) => {
-            drawing = true;
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (drawing) {
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
-                ctx.stroke();
-            }
-        });
-
-        canvas.addEventListener('touchend',
+        // 이전 버튼 (첫 화면으로 이동)
+        document.getElementById('previous-btn
