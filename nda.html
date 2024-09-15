@@ -8,13 +8,14 @@
         body {
             font-family: 'Arial', sans-serif;
             padding: 20px;
-            text-align: center;
+            text-align: left; /* 본문 왼쪽 정렬 */
             line-height: 1.8;
         }
 
         h1 {
             font-size: 24px;
             font-weight: bold;
+            text-align: center; /* 제목은 중앙 정렬 */
             margin-bottom: 20px;
         }
 
@@ -185,4 +186,52 @@
         });
 
         signatureCompleteBtn.addEventListener('click', () => {
-            const signatureImage
+            const signatureImage = canvas.toDataURL();
+            const img = new Image();
+            img.src = signatureImage;
+            signatureDisplay.innerHTML = '';
+            signatureDisplay.appendChild(img);
+            closePopup(signaturePopup);
+        });
+
+        signatureClearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // 서명 그리기 기능
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            drawing = false;
+        });
+
+        // 이전 버튼
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            dateDisplay.textContent = '';
+            signatureDisplay.innerHTML = '';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // 다음 버튼
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'nextpage.html'; // 다음 페이지 링크
+        });
+    </script>
+</body>
+</html>
