@@ -8,34 +8,34 @@
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center; /* 텍스트를 정확히 화면 중앙에 배치 */
+            align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #fff;
             color: #000;
-            flex-direction: column;
         }
         .container {
             text-align: center;
         }
         h1 {
-            font-size: 72px; /* 글자 크기를 두 배로 */
+            font-size: 72px; /* 두 배로 키운 글자 크기 */
             margin: 0;
-            padding: 0;
+            padding-bottom: 20px; /* 제목과 아래 텍스트 간격 */
         }
         p {
-            font-size: 32px; /* 글자 크기를 두 배로 */
-            margin: 20px 0 40px 0; /* 위아래 간격을 줄임 */
+            font-size: 32px; /* 두 배로 키운 글자 크기 */
+            margin: 10px 0 30px 0; /* 간격 조정 */
             color: red;
         }
         .click-button {
-            font-size: 36px; /* 글자 크기 두 배로 */
+            font-size: 36px; /* 두 배로 키운 글자 크기 */
             color: black;
             text-decoration: none;
             border-bottom: 1px solid black;
             cursor: pointer;
-            margin-bottom: 60px; /* 참가하기 클릭을 좀 더 아래로 */
+            margin-top: 40px; /* 참가하기 클릭을 더 아래로 배치 */
         }
         .click-button:hover {
             color: #007BFF;
