@@ -51,24 +51,18 @@
             text-align: center;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-        }
-
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
         .bottom-buttons {
             display: flex;
             justify-content: space-between;
             width: 100%;
             max-width: 800px;
             margin: 50px auto 0;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         .popup {
@@ -266,4 +260,8 @@
         });
 
         canvas.addEventListener('mouseleave', () => {
-            drawing =
+            drawing = false;
+        });
+
+        // 이전 버튼 (첫 화면으로 이동)
+        document.getElementBy
