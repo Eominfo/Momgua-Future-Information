@@ -233,7 +233,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // 서명 그리기 기능 (마우스 + 터치 이벤트 처리)
+        // 서명 그리기 기능 (마우스 + 터치 이벤트)
         let drawing = false;
 
         // 마우스 이벤트
@@ -261,14 +261,4 @@
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousedown', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            canvas.dispatchEvent(mouseEvent);
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousemove',
+            ctx.moveTo(touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offset
