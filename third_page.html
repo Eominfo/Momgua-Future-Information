@@ -192,9 +192,9 @@
             document.querySelector('.overlay').style.display = 'block';
         });
 
-        // 팝업 닫기 (내용 보기 팝업 전용)
-        function closePopupPrivacy() {
-            document.getElementById('privacy-popup').style.display = 'none';
+        // 팝업 닫기
+        function closePopup(type) {
+            document.getElementById(type + '-popup').style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';
         }
 
