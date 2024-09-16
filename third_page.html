@@ -185,6 +185,12 @@
     </div>
 
     <script>
+        // 팝업 닫기 함수
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+            document.querySelector('.overlay').style.display = 'none';
+        }
+        
         // "내용 보기" 클릭 시 팝업 열기
         document.querySelector('.view-details').addEventListener('click', function(event) {
             event.preventDefault(); // 링크 기본 동작 방지
@@ -192,10 +198,6 @@
             document.querySelector('.overlay').style.display = 'block';
         });
 
-        // 팝업 닫기
-        function closePopup(type) {
-            document.getElementById(type + '-popup').style.display = 'none';
-            document.querySelector('.overlay').style.display = 'none';
         }
 
         // 성명, 생년월일, 이메일 클릭 시 팝업 열기
