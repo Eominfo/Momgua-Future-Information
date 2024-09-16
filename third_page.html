@@ -90,20 +90,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 80%;
+            height: 60%;
             padding: 20px;
             background-color: white;
             border: 2px solid black;
             z-index: 1000;
-        }
-
-        .popup input {
-            width: 200px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .popup button {
-            padding: 5px 10px;
+            overflow-y: auto; /* 팝업에 스크롤 추가 */
         }
 
         /* 배경 어둡게 처리 */
@@ -126,6 +119,7 @@
     </style>
 </head>
 <body>
+    <div class="container">
         <div class="checkbox-container">
             <input type="checkbox" id="agree-checkbox">
             <label for="agree-checkbox">
@@ -153,6 +147,18 @@
     <!-- 팝업을 위한 요소들 -->
     <div class="overlay"></div>
 
+    <!-- 개인정보 수집 및 이용 동의서 팝업 -->
+    <div id="privacy-popup" class="popup">
+        <h3>개인정보 수집 및 이용 동의서</h3>
+        <div class="popup-content">
+            <p>
+                <!-- 여기에 개인정보 수집 및 이용 동의서 내용을 넣으세요 -->
+                개인정보 수집 항목, 목적, 기간 등에 대한 내용
+            </p>
+        </div>
+        <button onclick="closePopup('privacy')">닫기</button>
+    </div>
+
     <div class="popup" id="name-popup">
         <h3>성명 입력</h3>
         <input type="text" id="name-input">
@@ -172,18 +178,15 @@
     </div>
 
     <script>
-        // 팝업 열기
-        function openPopup(type) {
-            document.getElementById(type + '-popup').style.display = 'block';
+        // "내용 보기" 클릭 시 팝업 열기
+        document.querySelector('.view-details').addEventListener('click', function(event) {
+            event.preventDefault(); // 링크 기본 동작 방지
+            document.getElementById('privacy-popup').style.display = 'block';
             document.querySelector('.overlay').style.display = 'block';
-        }
+        });
 
-        // 팝업 닫기 및 값 설정
+        // 팝업 닫기
         function closePopup(type) {
-            const inputValue = document.getElementById(type + '-input').value;
-            if (inputValue) {
-                document.getElementById(type + '-result').innerText = inputValue;
-            }
             document.getElementById(type + '-popup').style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';
         }
