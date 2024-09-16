@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -191,7 +191,7 @@
     <div id="overlay" class="overlay"></div>
 
     <script>
-        // 팝업 열고 닫기
+        // 팝업 열고 닫기 기능
         const dateClick = document.getElementById('date-click');
         const datePopup = document.getElementById('date-popup');
         const dateCompleteBtn = document.getElementById('date-complete');
@@ -249,15 +249,13 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
-        // 이전 버튼 (첫 화면으로 이동)
-        document.getElementById('previous-btn').addEventListener('click', () => {
-            window.location.href = 'index.html'; // 첫 화면으로 이동
+        // 서명 그리기 기능 (터치 지원)
+        let drawing = false;
+
+        // 마우스 이벤트
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            ctx.moveTo(e.offsetX, e.offsetY);
         });
 
-        // 다음 버튼 클릭 시 세 번째 페이지로 이동
-        document.getElementById('next-btn').addEventListener('click', () => {
-            window.location.href = 'third_page.html'; // 세 번째 페이지로 이동
-        });
-    </script>
-</body>
-</html>
+        canvas.addEventListener('mousemove', (e) => {
