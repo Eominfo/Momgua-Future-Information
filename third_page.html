@@ -255,6 +255,11 @@
         document.getElementById('email').addEventListener('click', function() {
             openPopup('email');
         });
+        
+        // "이전" 버튼 클릭 시 이전 페이지로 돌아가기
+        document.getElementById('prev-button').addEventListener('click', function() {
+            window.history.back();
+        });
     </script>
 </body>
 </html>
