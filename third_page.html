@@ -94,9 +94,13 @@
             background-color: white;
             border: 2px solid black;
             z-index: 1000;
-            overflow-y: auto; /* 스크롤 기능 추가 */
-            max-height: 80vh;  /* 최대 높이 설정 */
-            width: 80%;  /* 팝업 너비 설정 */
+        }
+        
+        /* ID가 privacy-popup인 팝업에만 적용 */
+        #privacy-popup {
+            overflow-y: auto;  /* 스크롤 기능 */
+            max-height: 80vh;  /* 최대 높이 */
+            width: 80%;  /* 팝업 너비 */
         }
 
         .popup input {
