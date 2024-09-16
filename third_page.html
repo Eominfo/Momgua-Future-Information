@@ -27,10 +27,10 @@
         .checkbox-container {
             display: flex;
             align-items: center;
-            justify-content: center; /* 중앙 정렬 */
+            justify-content: center;
             font-size: 1.2em;
-            margin-bottom: 20px; /* 엔터 두 번 정도의 간격을 줌 */
-            margin-top: 80px; /* 조금 더 아래로 내리기 위한 추가 간격 */
+            margin-bottom: 20px;
+            margin-top: 80px;
         }
 
         input[type="checkbox"] {
@@ -42,15 +42,15 @@
 
         .view-details {
             color: blue;
-            text-decoration: underline; /* 밑줄 추가 */
-            margin-left: 10px; /* 문장 뒤에 간격 */
-            display: inline; /* 문장 뒤에 inline으로 위치 */
+            text-decoration: underline;
+            margin-left: 10px;
+            display: inline;
         }
 
         .info-section {
             text-align: center;
             margin-bottom: 100px;
-            margin-top: 220px; /* 조금 더 아래로 내리기 위한 추가 간격 */
+            margin-top: 220px;
         }
 
         .info-section p {
@@ -94,7 +94,7 @@
             background-color: white;
             border: 2px solid black;
             z-index: 1000;
-            overflow-y: auto; /* 팝업에 스크롤 추가 */
+            overflow-y: auto;
         }
 
         .popup input {
@@ -122,16 +122,17 @@
         .result {
             margin-top: 10px;
             font-size: 1.2em;
-            color: black; /* 텍스트 색상을 검정으로 변경 */
+            color: black;
         }
     </style>
 </head>
 <body>
+    <div class="container">
         <div class="checkbox-container">
             <input type="checkbox" id="agree-checkbox">
             <label for="agree-checkbox">
                 본인은 몸과 에옴의 미래 정보 조회 서비스의 신청자로 위 내용과 같이 개인정보 수집 및 이용에 대하여 동의합니다.
-                <a href="#" class="view-details">내용 보기</a> <!-- 문장 바로 뒤에 위치 -->
+                <a href="#" class="view-details">내용 보기</a>
             </label>
         </div>
 
@@ -163,25 +164,25 @@
                 개인정보 수집 항목, 목적, 기간 등에 대한 내용
             </p>
         </div>
-        <button onclick="closePopup('privacy')">닫기</button>
+        <button onclick="closePopup('privacy-popup')">닫기</button>
     </div>
     
     <div class="popup" id="name-popup">
         <h3>성명 입력</h3>
         <input type="text" id="name-input">
-        <button onclick="closePopup('name')">완료</button>
+        <button onclick="closePopup('name-popup')">완료</button>
     </div>
 
     <div class="popup" id="birthdate-popup">
         <h3>생년월일(8글자) 입력</h3>
         <input type="text" id="birthdate-input" maxlength="8">
-        <button onclick="closePopup('birthdate')">완료</button>
+        <button onclick="closePopup('birthdate-popup')">완료</button>
     </div>
 
     <div class="popup" id="email-popup">
         <h3>이메일 입력</h3>
         <input type="email" id="email-input">
-        <button onclick="closePopup('email')">완료</button>
+        <button onclick="closePopup('email-popup')">완료</button>
     </div>
 
     <script>
@@ -190,30 +191,18 @@
             document.getElementById(popupId).style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';
         }
-        
+
         // "내용 보기" 클릭 시 팝업 열기
         document.querySelector('.view-details').addEventListener('click', function(event) {
-            event.preventDefault(); // 링크 기본 동작 방지
+            event.preventDefault();
             document.getElementById('privacy-popup').style.display = 'block';
             document.querySelector('.overlay').style.display = 'block';
         });
 
-        }
-
-        // 성명, 생년월일, 이메일 클릭 시 팝업 열기
+        // 팝업 열기 함수
         function openPopup(type) {
             document.getElementById(type + '-popup').style.display = 'block';
             document.querySelector('.overlay').style.display = 'block';
-        }
-
-        // 팝업 닫기 및 값 설정 (성명, 생년월일, 이메일 전용)
-        function closePopup(type) {
-            const inputValue = document.getElementById(type + '-input').value;
-            if (inputValue) {
-                document.getElementById(type + '-result').innerText = inputValue;
-            }
-            document.getElementById(type + '-popup').style.display = 'none';
-            document.querySelector('.overlay').style.display = 'none';
         }
 
         // 성명, 생년월일, 이메일 클릭 시 팝업 열기
