@@ -224,8 +224,15 @@
     </div>
 
     <script>
-        // 팝업 닫기 함수
-        function closePopup(popupId) {
+        // 팝업 닫기 함수 및 값 설정
+        function closePopup(type) {
+            // "내용 보기" 팝업이 아닌 경우에만 입력값 처리
+            if (type !== 'privacy') {
+                const inputValue = document.getElementById(type + '-input').value; // 입력된 값 가져오기
+                if (inputValue) {
+                    document.getElementById(type + '-result').innerText = inputValue; // 결과 영역에 값 표시
+                }
+            }
             document.getElementById(popupId).style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';
         }
