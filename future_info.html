@@ -10,16 +10,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            text-align: center;
         }
 
         .container {
-            text-align: center;
-            width: 80%;
             max-width: 600px;
+            width: 100%;
         }
 
         h1 {
@@ -28,27 +27,8 @@
         }
 
         p {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 40px;
-        }
-
-        .clickable {
-            cursor: pointer;
-            font-weight: bold;
-            color: black;
-            text-decoration: underline;
-        }
-
-        .input-area {
-            margin-bottom: 20px;
-        }
-
-        .bottom-buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 600px;
-            margin-top: 50px;
         }
 
         button {
@@ -56,138 +36,21 @@
             padding: 10px 20px;
             cursor: pointer;
         }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            border: 1px solid #000;
-            padding: 20px;
-            z-index: 1000;
-        }
-
-        .popup input {
-            font-size: 16px;
-            padding: 10px;
-        }
-
-        .popup-buttons {
-            margin-top: 10px;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 500;
-        }
-
-        /* 반응형 레이아웃 */
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            p {
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
-            }
-
-            .bottom-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>미래 정보 조회 서비스</h1>
-
-        <p>
-            본인은 몸과 에옴의 미래 정보 조회 서비스의 신청자로 위 내용과 같이 개인정보 수집 및 이용에 대하여 동의합니다.
-            <span class="clickable" id="popup-trigger">내용 보기</span>
-        </p>
-
-        <div class="input-area">
-            <p class="clickable" id="name-click">성명</p>
-            <p id="name-display"></p>
-
-            <p class="clickable" id="birth-click">생년월일(6글자)</p>
-            <p id="birth-display"></p>
-
-            <p class="clickable" id="email-click">이메일 인증</p>
-            <p id="email-display"></p>
-        </div>
-
-        <div class="bottom-buttons">
-            <button id="previous-btn">이전</button>
-            <button id="next-btn">다음</button>
-        </div>
+        <p>본 페이지는 미래 정보 조회 서비스의 세부 정보를 제공하는 페이지입니다.</p>
+        <button onclick="goToNextPage()">다음 페이지로 이동</button>
     </div>
-
-    <!-- 팝업 -->
-    <div id="popup" class="popup">
-        <h2>개인정보 수집 및 이용 동의</h2>
-        <p>
-            수집된 개인정보는 서비스 제공 목적 외에는 사용되지 않으며, 개인정보는 법적 의무에 따라 안전하게 관리됩니다. 
-        </p>
-        <div class="popup-buttons">
-            <button id="popup-close">닫기</button>
-        </div>
-    </div>
-
-    <!-- 성명 입력 팝업 -->
-    <div id="name-popup" class="popup">
-        <h2>성명 입력</h2>
-        <input type="text" id="name-input" placeholder="이름 입력">
-        <div class="popup-buttons">
-            <button id="name-complete">완료</button>
-        </div>
-    </div>
-
-    <!-- 생년월일 입력 팝업 -->
-    <div id="birth-popup" class="popup">
-        <h2>생년월일 입력</h2>
-        <input type="text" id="birth-input" maxlength="6" placeholder="생년월일(6글자)">
-        <div class="popup-buttons">
-            <button id="birth-complete">완료</button>
-        </div>
-    </div>
-
-    <!-- 이메일 입력 팝업 -->
-    <div id="email-popup" class="popup">
-        <h2>이메일 입력</h2>
-        <input type="email" id="email-input" placeholder="이메일 입력">
-        <div class="popup-buttons">
-            <button id="email-complete">완료</button>
-        </div>
-    </div>
-
-    <div id="overlay" class="overlay"></div>
 
     <script>
-        const popupTrigger = document.getElementById('popup-trigger');
-        const popup = document.getElementById('popup');
-        const popupClose = document.getElementById('popup-close');
-        const overlay = document.getElementById('overlay');
-
-        const nameClick = document.getElementById('name-click');
-        const namePopup = document.getElementById('name-popup');
-        const nameCompleteBtn = document.getElementById('name-complete');
-        const nameDisplay = document.getElementById
+        function goToNextPage() {
+            alert('다음 페이지로 이동합니다.');
+            // 이곳에 다음 페이지 경로를 설정
+            window.location.href = 'nextpage.html'; // 실제 다음 페이지 경로로 수정하세요.
+        }
+    </script>
+</body>
+</html>
