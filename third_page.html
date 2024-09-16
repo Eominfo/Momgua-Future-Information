@@ -191,32 +191,24 @@
         <button onclick="closePopup('privacy')">닫기</button>
     </div>
 
+    <div class="popup" id="name-popup">
+        <h3>성명 입력</h3>
+        <input type="text" id="name-input">
+        <button onclick="closePopup('name')">완료</button>
+    </div>
+
+    <div class="popup" id="birthdate-popup">
+        <h3>생년월일(8글자) 입력</h3>
+        <input type="text" id="birthdate-input" maxlength="8">
+        <button onclick="closePopup('birthdate')">완료</button>
+    </div>
+
+    <div class="popup" id="email-popup">
+        <h3>이메일 입력</h3>
+        <input type="email" id="email-input">
+        <button onclick="closePopup('email')">완료</button>
+    </div>
+
     <script>
         // "내용 보기" 클릭 시 팝업 열기
-        document.querySelector('.view-details').addEventListener('click', function(event) {
-            event.preventDefault(); // 링크 기본 동작 방지
-            document.getElementById('privacy-popup').style.display = 'block';
-            document.querySelector('.overlay').style.display = 'block';
-        });
-
-        // 팝업 닫기
-        function closePopup(type) {
-            document.getElementById(type + '-popup').style.display = 'none';
-            document.querySelector('.overlay').style.display = 'none';
-        }
-
-        // 성명, 생년월일, 이메일 클릭 시 팝업 열기
-        document.getElementById('name').addEventListener('click', function() {
-            openPopup('name');
-        });
-
-        document.getElementById('birthdate').addEventListener('click', function() {
-            openPopup('birthdate');
-        });
-
-        document.getElementById('email').addEventListener('click', function() {
-            openPopup('email');
-        });
-    </script>
-</body>
-</html>
+        document.querySelector('.view-details').addEventListener('click', function(event
