@@ -193,13 +193,8 @@
     <!-- 배경 어둡게 하는 오버레이 -->
     <div id="overlay" class="overlay"></div>
 
-    <!-- 여기에서 자바스크립트 코드 시작 -->
+    <!-- 자바스크립트 추가: 다음 버튼 클릭 시 세 번째 페이지로 이동 -->
     <script>
-        // 이전 버튼 클릭 시 첫 번째 페이지로 이동
-        document.getElementById('previous-btn').addEventListener('click', () => {
-            window.location.href = 'index.html'; // 첫 번째 페이지 경로
-        });
-
         // 다음 버튼 클릭 시 세 번째 페이지로 이동
         document.getElementById('next-btn').addEventListener('click', () => {
             window.location.href = 'future_info.html'; // 세 번째 페이지 경로
@@ -221,4 +216,37 @@
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
 
-        //
+        // 팝업 열기와 닫기 함수
+        function openPopup(popup) {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closePopup(popup) {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        // 날짜 클릭 이벤트
+        dateClick.addEventListener('click', () => {
+            openPopup(datePopup);
+        });
+
+        dateCompleteBtn.addEventListener('click', () => {
+            const dateValue = dateInput.value;
+            if (dateValue) {
+                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
+            }
+            closePopup(datePopup);
+        });
+
+        // 서명 클릭 이벤트
+        signatureClick.addEventListener('click', () => {
+            openPopup(signaturePopup);
+        });
+
+        signatureCompleteBtn.addEventListener('click', () => {
+            const signatureImage = canvas.toDataURL();
+            const img = new Image();
+            img.src = signatureImage;
+            signatureDisplay
