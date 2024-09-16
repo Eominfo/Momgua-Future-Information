@@ -22,6 +22,7 @@
             height: 100vh;
             padding: 20px;
             text-align: center;
+            position: relative; /* 부모 요소를 relative로 설정 */
         }
 
         .checkbox-container {
@@ -76,7 +77,9 @@
             max-width: 800px;
             margin: 50px auto; /* 버튼 위 아래 간격 조정 */
             position: absolute;  /* 부모 요소 내에서 절대 위치 */
-            bottom: 0px;
+            bottom: 20px;
+            left: 50%; /* 왼쪽에서 50% 이동 */
+            transform: translateX(-50%); /* 가운데 정렬 */
         }
 
         button {
