@@ -18,12 +18,14 @@
             overflow-y: auto;
         }
 
+        /* 일반 스마트폰에 맞는 패딩 설정 (360px ~ 768px 해상도) */
         @media (max-width: 768px) {
             body {
                 padding-top: 30px; /* 스마트폰에서는 조금만 패딩을 적용 */
             }
         }
 
+        /* 태블릿 (아이패드 등)에 맞는 패딩 설정 */
         @media (min-width: 769px) and (max-width: 1024px) {
             body {
                 padding-top: 0px; /* 태블릿에서도 조금만 패딩을 적용 */
@@ -111,6 +113,7 @@
             z-index: 500;
         }
 
+        /* 반응형 레이아웃 */
         @media (max-width: 768px) {
             .container {
                 width: 90%;
@@ -140,11 +143,21 @@
 
     <div class="container">
         <h1>비밀유지서약서(프로젝트 참여자)</h1>
-        <p>본인은 버징가 ‘운명적 데이터’ 전시에 입장하여...</p>
-        <p>1. 본인은, 프로젝트 참여 과정에서 취득하게...</p>
-        <p>2. 본인은, 프로젝트 참여 과정에서 취득하게...</p>
-        <p>위 서약한 사항을 위반할 경우...</p>
-        <p style="margin-bottom: 60px;">(위 내용을 확인하고 이해하였으며, 이에 서명함)</p>
+        <p>
+            본인은 버징가 ‘운명적 데이터’ 전시에 입장하여 현재 작품을 관람 중인 관람자로서, 버징가에서 주관하는 ‘운명적 데이터’ 전시 작품 중 [미래 정보 조회 서비스] 프로젝트에 참여함에 있어, 몸과 에옴의 미래 개인정보의 보호와 관련한 규정 등을 충분히 설명받고 이해하였기에 다음 사항을 준수할 것을 서약합니다.
+        </p>
+        <p>
+            1. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는 직업, 인간 관계, 사건, 사고, 위치 등을 비밀로 유지하고, 이와 관련된 법규 및 방침 등을 준수하겠습니다.
+        </p>
+        <p>
+            2. 본인은, 프로젝트 참여 과정에서 취득하게 되는 몸과 에옴의 미래에서 일어날 수도 있는 직업, 인간 관계, 사건, 사고, 위치 등을 경우를 몸과 에옴의 사전 서면 동의 없이는 어떠한 방법으로도 제3자에게 제공하거나 누설하지 않으며, 부정한 목적으로 공개하거나 사용하지 않을 것을 서약합니다.
+        </p>
+        <p>
+            위 서약한 사항을 위반할 경우 관련 법규에 의한 민·형사상 책임을 감수할 것을 서약합니다.
+        </p>
+        <p style="margin-bottom: 60px;">
+           (위 내용을 확인하고 이해하였으며, 이에 서명함)
+        </p>
 
         <p class="clickable" id="date-click">날짜 (클릭)</p>
         <p id="date-display"></p>
@@ -158,6 +171,7 @@
         </div>
     </div>
 
+    <!-- 날짜 입력 팝업 -->
     <div id="date-popup" class="popup">
         <h2>날짜 입력</h2>
         <input type="date" id="date-input">
@@ -166,6 +180,7 @@
         </div>
     </div>
 
+    <!-- 서명 팝업 -->
     <div id="signature-popup" class="popup">
         <h2>서명하기</h2>
         <canvas id="signature-canvas" width="300" height="150"></canvas>
@@ -175,6 +190,7 @@
         </div>
     </div>
 
+    <!-- 배경 어둡게 하는 오버레이 -->
     <div id="overlay" class="overlay"></div>
 
     <script>
@@ -205,7 +221,7 @@
             overlay.style.display = 'none';
         }
 
-        // 날짜 입력
+        // 날짜 클릭 이벤트
         dateClick.addEventListener('click', () => {
             openPopup(datePopup);
         });
@@ -218,7 +234,7 @@
             closePopup(datePopup);
         });
 
-        // 서명 입력
+        // 서명 클릭 이벤트
         signatureClick.addEventListener('click', () => {
             openPopup(signaturePopup);
         });
@@ -238,8 +254,9 @@
 
         // 다음 버튼 클릭 시 세 번째 페이지로 이동
         document.getElementById('next-btn').addEventListener('click', () => {
-            window.location.href = 'third_page.html'; // 세 번째 페이지 경로 설정
+            window.location.href = 'third_page.html'; // 세 번째 페이지로 이동
         });
     </script>
 </body>
 </html>
+
