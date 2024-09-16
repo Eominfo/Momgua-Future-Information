@@ -46,11 +46,15 @@
     </div>
 
     <script>
-        function goToNextPage() {
-            alert('다음 페이지로 이동합니다.');
-            // 이곳에 다음 페이지 경로를 설정
-            window.location.href = 'nextpage.html'; // 실제 다음 페이지 경로로 수정하세요.
-        }
+        // 이전 버튼 클릭 시 첫 번째 페이지로 이동
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 첫 번째 페이지 경로 설정
+        });
+
+        // 다음 버튼 클릭 시 세 번째 페이지로 이동
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'future_info.html'; // 세 번째 페이지 경로 설정
+        });
     </script>
 </body>
 </html>
