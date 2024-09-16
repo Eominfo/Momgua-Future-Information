@@ -30,7 +30,7 @@
             justify-content: center; /* 중앙 정렬 */
             font-size: 1.2em;
             margin-bottom: 20px; /* 엔터 두 번 정도의 간격을 줌 */
-            margin-top: 80px; /* 추가로 두 번 엔터 친 것처럼 더 아래로 내림 */
+            margin-top: 80px; /* 조금 더 아래로 내리기 위한 추가 간격 */
         }
 
         input[type="checkbox"] {
@@ -123,7 +123,6 @@
     </style>
 </head>
 <body>
-    <div class="container">
         <div class="checkbox-container">
             <input type="checkbox" id="agree-checkbox">
             <label for="agree-checkbox">
@@ -193,4 +192,32 @@
             </p>
         </div>
         <button onclick="closePopup('privacy')">닫기</button>
-    </
+    </div>
+
+    <script>
+        // 팝업 열기
+        document.querySelector('.view-details').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('privacy-popup').style.display = 'block';
+            document.querySelector('.overlay').style.display = 'block';
+        });
+
+        // 팝업 닫기
+        function closePopup(type) {
+            document.getElementById(type + '-popup').style.display = 'none';
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        // 성명, 생년월일, 이메일 클릭 시 팝업 열기
+        document.getElementById('name').addEventListener('click', function() {
+            openPopup('name');
+        });
+
+        document.getElementById('birthdate').addEventListener('click', function() {
+            openPopup('birthdate');
+        });
+
+        document.getElementById('email').addEventListener('click', function()
+    </script>
+</body>
+</html>
