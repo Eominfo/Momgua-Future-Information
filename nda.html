@@ -5,33 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀유지서약서</title>
     <style>
-body {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-    padding-top: 50px; /* 기본적으로 적은 패딩값 설정 */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    overflow-y: auto;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            padding-top: 50px; /* 기본적으로 적은 패딩값 설정 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+        }
 
-/* 일반 스마트폰에 맞는 패딩 설정 (360px ~ 768px 해상도) */
-@media (max-width: 768px) {
-    body {
-        padding-top: 30px; /* 스마트폰에서는 조금만 패딩을 적용 */
-    }
-}
+        /* 일반 스마트폰에 맞는 패딩 설정 (360px ~ 768px 해상도) */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 30px; /* 스마트폰에서는 조금만 패딩을 적용 */
+            }
+        }
 
-/* 태블릿 (아이패드 등)에 맞는 패딩 설정 */
-@media (min-width: 769px) and (max-width: 1024px) {
-    body {
-        padding-top: 0px; /* 태블릿에서도 조금만 패딩을 적용 */
-    }
-}
-
+        /* 태블릿 (아이패드 등)에 맞는 패딩 설정 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                padding-top: 0px; /* 태블릿에서도 조금만 패딩을 적용 */
+            }
+        }
 
         .container {
             width: 50%;
@@ -194,7 +193,18 @@ body {
     <!-- 배경 어둡게 하는 오버레이 -->
     <div id="overlay" class="overlay"></div>
 
+    <!-- 여기에서 자바스크립트 코드 시작 -->
     <script>
+        // 이전 버튼 클릭 시 첫 번째 페이지로 이동
+        document.getElementById('previous-btn').addEventListener('click', () => {
+            window.location.href = 'index.html'; // 첫 번째 페이지 경로
+        });
+
+        // 다음 버튼 클릭 시 세 번째 페이지로 이동
+        document.getElementById('next-btn').addEventListener('click', () => {
+            window.location.href = 'future_info.html'; // 세 번째 페이지 경로
+        });
+
         // 팝업 열고 닫기 기능
         const dateClick = document.getElementById('date-click');
         const datePopup = document.getElementById('date-popup');
@@ -211,102 +221,4 @@ body {
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
 
-        // 팝업 열기와 닫기 함수
-        function openPopup(popup) {
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-
-        function closePopup(popup) {
-            popup.style.display = 'none';
-            overlay.style.display = 'none';
-        }
-
-        // 날짜 클릭 이벤트
-        dateClick.addEventListener('click', () => {
-            openPopup(datePopup);
-        });
-
-        dateCompleteBtn.addEventListener('click', () => {
-            const dateValue = dateInput.value;
-            if (dateValue) {
-                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
-            }
-            closePopup(datePopup);
-        });
-
-        // 서명 클릭 이벤트
-        signatureClick.addEventListener('click', () => {
-            openPopup(signaturePopup);
-        });
-
-        signatureCompleteBtn.addEventListener('click', () => {
-            const signatureImage = canvas.toDataURL();
-            const img = new Image();
-            img.src = signatureImage;
-            signatureDisplay.innerHTML = '';
-            signatureDisplay.appendChild(img);
-            closePopup(signaturePopup);
-        });
-
-        signatureClearBtn.addEventListener('click', () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        });
-
-        // 서명 그리기 기능 (터치 지원)
-        let drawing = false;
-
-        // 마우스 이벤트
-        canvas.addEventListener('mousedown', (e) => {
-            drawing = true;
-            ctx.moveTo(e.offsetX, e.offsetY);
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (drawing) {
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
-            }
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            drawing = false;
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            drawing = false;
-        });
-
-        // 터치 이벤트
-        canvas.addEventListener('touchstart', (e) => {
-            drawing = true;
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (drawing) {
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
-                ctx.stroke();
-            }
-        });
-
-        canvas.addEventListener('touchend', () => {
-            drawing = false;
-        });
-
-        // 이전 버튼 (첫 화면으로 이동)
-        document.getElementById('previous-btn').addEventListener('click', () => {
-            window.location.href = 'index.html'; // 첫 화면으로 이동
-        });
-
-        // 다음 버튼 (다음 페이지로 이동)
-        document.getElementById('next-btn').addEventListener('click', () => {
-            window.location.href = 'future_info.html'; // 세 번째 페이지 경로 설정
-        });
-    </script>
-</body>
-</html>
+        //
