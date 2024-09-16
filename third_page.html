@@ -113,6 +113,12 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+
+        .result {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -120,15 +126,18 @@
         <div class="checkbox-container">
             <input type="checkbox" id="agree-checkbox">
             <label for="agree-checkbox">
-                □ 본인은 몸과 에옴의 미래 정보 조회 서비스의 신청자로 위 내용과 같이 개인정보 수집 및 이용에 대하여 동의합니다.
+                본인은 몸과 에옴의 미래 정보 조회 서비스의 신청자로 위 내용과 같이 개인정보 수집 및 이용에 대하여 동의합니다.
             </label>
         </div>
         <a href="#" class="view-details">내용 보기</a>
 
         <div class="info-section">
             <p id="name">성명 (클릭)</p>
+            <div id="name-result" class="result"></div>
             <p id="birthdate">생년월일(8글자) (클릭)</p>
+            <div id="birthdate-result" class="result"></div>
             <p id="email">이메일 인증 (클릭)</p>
+            <div id="email-result" class="result"></div>
             <p class="email-note">(인증된 이메일로 정보를 언제든지 확인하실 수 있는 링크를 보내드립니다)</p>
         </div>
 
@@ -169,7 +178,9 @@
         // 팝업 닫기 및 값 설정
         function closePopup(type) {
             const inputValue = document.getElementById(type + '-input').value;
-            document.getElementById(type).innerText = inputValue || (type === 'birthdate' ? '생년월일(8글자) (클릭)' : type + ' (클릭)');
+            if (inputValue) {
+                document.getElementById(type + '-result').innerText = inputValue;
+            }
             document.getElementById(type + '-popup').style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';
         }
