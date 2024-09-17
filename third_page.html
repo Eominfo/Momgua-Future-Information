@@ -259,10 +259,10 @@
         })();
 
         document.getElementById('email-verify-btn').addEventListener('click', function() {
-            const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 가져오기
+            const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 주소 가져오기
 
             const templateParams = {
-                to_email: email,  // EmailJS 템플릿에 넘겨줄 이메일 파라미터 설정
+                to_email: email  // 사용자가 입력한 이메일 주소로 설정
             };
 
         emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
