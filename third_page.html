@@ -254,6 +254,14 @@
     <!-- EmailJS 관련 자바스크립트 코드 추가 -->    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
+        // 페이지 로드 시 localStorage를 초기화
+        window.addEventListener('load', function() {
+            // 페이지 로드 시 인증 상태가 없으면 'false'로 설정하여 초기화
+            if (!localStorage.getItem('emailVerified')) {
+                localStorage.setItem('emailVerified', 'false');
+            }
+        });
+        
         (function(){
             emailjs.init("fUyJgyf2lwm1GOfr4");  // YOUR_USER_ID는 EmailJS 대시보드에서 얻은 ID로 대체
         })();
@@ -283,24 +291,9 @@
                 });
         });
 
-        // "완료" 버튼 클릭 시 인증 상태 확인
         document.getElementById('email-popup').querySelector('button').addEventListener('click', function() {
             // localStorage에서 인증 상태 확인
             const verifiedStatus = localStorage.getItem('emailVerified');
-            
-            // 인증 상태를 페이지에 표시해서 직접 확인
-            const statusCheckElement = document.createElement('p');
-            statusCheckElement.textContent = '저장된 인증 상태: ' + verifiedStatus;
-            statusCheckElement.style.fontSize = '14px';
-            statusCheckElement.style.color = 'blue';
-            
-            // 페이지에 인증 상태 출력
-            const existingStatusCheck = document.getElementById('status-check');
-            if (existingStatusCheck) {
-                existingStatusCheck.remove();  // 기존에 추가된 상태 메시지 제거
-            }
-            statusCheckElement.id = 'status-check';  // ID 추가
-            document.getElementById('email-result').after(statusCheckElement);  // 인증 상태를 이메일 밑에 표시
 
             // 인증 상태에 따라 메시지 추가
             const messageElement = document.createElement('p');
@@ -315,14 +308,17 @@
             }
 
             messageElement.style.fontSize = '12px';
-            
+
+            // 기존 메시지 제거
             const existingMessage = document.querySelector('#verification-status');
             if (existingMessage) {
                 existingMessage.remove();  // 기존 메시지를 제거
             }
 
-            document.getElementById('email-result').after(messageElement);  // 인증 상태 메시지 추가
+            // 인증 상태 메시지 추가
+            document.getElementById('email-result').after(messageElement);
         });
+
 
     </script>
 
