@@ -261,8 +261,12 @@
         document.getElementById('email-verify-btn').addEventListener('click', function() {
             const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 주소 가져오기
 
+            alert("입력된 이메일 주소: " + email);  // 팝업으로 입력된 이메일 출력
+
             const templateParams = {
-                to_email: email  // 사용자가 입력한 이메일 주소로 설정
+                to_email: email,  // 사용자가 입력한 이메일 주소로 설정
+                from_name: 'Your Name',  // 임의의 발신자 이름 설정
+                message: 'Test message'  // 임의의 메시지 설정
             };
 
         emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
