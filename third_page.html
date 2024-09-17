@@ -250,8 +250,9 @@
         // 페이지 로드 시 localStorage를 초기화
         window.addEventListener('load', function() {
             // 페이지 로드 시 인증 상태가 없으면 'false'로 설정하여 초기화
-            localStorage.setItem('emailVerified', 'false');
-            console.log('인증 완료: localStorage에 true가 저장되었습니다.');
+            if (!localStorage.getItem('emailVerified')) {
+                localStorage.setItem('emailVerified', 'false');
+                console.log('인증 완료: localStorage에 true가 저장되었습니다.');
             }
         });
         
