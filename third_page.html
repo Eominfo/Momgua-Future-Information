@@ -275,7 +275,7 @@
         });
         
         // "완료" 버튼 클릭 시 인증 상태 확인
-        document.getElementById('email-verify-btn').addEventListener('click', function() {
+        document.getElementById('email-popup').querySelector('button').addEventListener('click', function() {
             const verifiedStatus = localStorage.getItem('emailVerified');
 
             const messageElement = document.createElement('p');
