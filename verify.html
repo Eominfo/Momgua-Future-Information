@@ -23,8 +23,10 @@
     <div class="message">인증되었습니다.</div>
     
     <script>
-        // 인증 완료 상태를 localStorage에 저장
-        localStorage.setItem('emailVerified', 'true');
+        window.addEventListener('load', function() {
+            localStorage.setItem('emailVerified', 'true');
+            console.log('인증 완료: localStorage에 true가 저장되었습니다.');
+        });
     </script>
 </body>
 </html>
