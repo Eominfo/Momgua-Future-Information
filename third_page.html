@@ -292,8 +292,9 @@
         });
 
         document.getElementById('email-popup').querySelector('button').addEventListener('click', function() {
-            // localStorage에서 인증 상태 확인
+            console.log('완료 버튼이 클릭되었습니다.');  // 클릭 여부를 확인하는 로그
             const verifiedStatus = localStorage.getItem('emailVerified');
+            console.log('저장된 인증 상태: ', verifiedStatus);  // 콘솔에 인증 상태 출력
 
             // 인증 상태에 따라 메시지 추가
             const messageElement = document.createElement('p');
