@@ -87,6 +87,20 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+        
+        #email-verify-btn {
+            margin-top: 10px; /* 이메일 입력 필드 아래 여백 */
+            padding: 10px 20px;
+            background-color: #4CAF50; /* 녹색 배경 */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #email-verify-btn:hover {
+            background-color: #45a049; /* 호버 시 색상 변경 */
+        }       
 
         /* 팝업 스타일 */
         .popup {
@@ -227,7 +241,8 @@
     <div class="popup" id="email-popup">
         <h3>이메일 입력</h3>
         <input type="email" id="email-input">
-        <button onclick="closePopup('email')">완료</button>
+        <button onclick="closePopup('email-popup')">완료</button>
+        <button id="email-verify-btn">이메일 인증</button> <!-- 이메일 인증 버튼 추가 -->
     </div>
 
     <script>
