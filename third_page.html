@@ -263,8 +263,7 @@
 
             const templateParams = {
                 to_email: email,  // 사용자가 입력한 이메일 주소로 설정
-                from_name: 'Your Name',  // 임의의 발신자 이름 설정
-                message: 'Test message'  // 임의의 메시지 설정
+                verification_link: 'https://yourwebsite.com/verify?email=' + email  // 이메일 인증 링크
             };
 
         emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
