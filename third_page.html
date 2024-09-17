@@ -273,6 +273,21 @@
                 alert('이메일 전송에 실패했습니다. 오류 메시지: ' + JSON.stringify(error));  // 오류 메시지를 팝업으로 표시
             });
         });
+        
+        // 이메일 인증 확인 후 메시지 표시
+        window.addEventListener('load', function() {
+            const verifiedStatus = localStorage.getItem('emailVerified');
+
+            if (verifiedStatus === 'true') {
+                // 인증이 완료된 경우 팝업에 빨간색 글씨로 "인증되었습니다." 표시
+                const messageElement = document.createElement('p');
+                messageElement.textContent = '인증되었습니다.';
+                messageElement.style.color = 'red';
+                messageElement.style.fontSize = '12px';
+                document.getElementById('email-popup').appendChild(messageElement);  // 팝업에 메시지 추가
+            }
+        });
+
     </script>
 
     <script>
