@@ -251,6 +251,29 @@
         <button id="email-verify-btn">이메일 인증</button> <!-- 이메일 인증 버튼 추가 -->
     </div>
 
+    <!-- EmailJS 관련 자바스크립트 코드 추가 -->    
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("fUyJgyf2lwm1GOfr4");  // YOUR_USER_ID는 EmailJS 대시보드에서 얻은 ID로 대체
+        })();
+
+        document.getElementById('email-verify-btn').addEventListener('click', function() {
+            const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 가져오기
+
+            const templateParams = {
+                to_email: email,  // EmailJS 템플릿에 넘겨줄 이메일 파라미터 설정
+            };
+
+            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)  // EmailJS로 이메일 보내기
+                .then(function(response) {
+                    alert('인증 이메일이 성공적으로 전송되었습니다.');  // 성공 메시지
+                }, function(error) {
+                    alert('이메일 전송에 실패했습니다.');  // 실패 메시지
+                });
+        });
+    </script>
+
     <script>
         // 팝업 닫기 함수 및 값 설정
         function closePopup(type) {
