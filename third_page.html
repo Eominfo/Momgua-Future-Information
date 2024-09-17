@@ -291,6 +291,12 @@
             }
 
             messageElement.style.fontSize = '12px';
+            // 기존 메시지를 덮어쓰지 않도록, 메시지가 한 번만 추가되게 설정
+            const existingMessage = document.getElementById('email-popup').querySelector('p');
+            if (existingMessage) {
+                existingMessage.remove();  // 기존 메시지를 제거
+            }        
+            
             document.getElementById('email-popup').appendChild(messageElement);  // 팝업에 메시지 추가
         });
     </script>
