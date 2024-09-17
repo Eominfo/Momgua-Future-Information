@@ -269,9 +269,17 @@
 
             emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
                 .then(function(response) {
-                    alert('인증 이메일이 성공적으로 전송되었습니다.');
+                    const successMessage = document.createElement('p');
+                    successMessage.textContent = '인증 이메일이 성공적으로 전송되었습니다.';
+                    successMessage.style.color = 'green';
+                    successMessage.style.fontSize = '14px';
+                    document.getElementById('email-result').after(successMessage);  // 이메일 밑에 성공 메시지 표시
                 }, function(error) {
-                    alert('이메일 전송에 실패했습니다. 오류 메시지: ' + JSON.stringify(error));
+                    const errorMessage = document.createElement('p');
+                    errorMessage.textContent = '이메일 전송에 실패했습니다. 다시 시도해주세요.';
+                    errorMessage.style.color = 'red';
+                    errorMessage.style.fontSize = '14px';
+                    document.getElementById('email-result').after(errorMessage);  // 이메일 밑에 실패 메시지 표시
                 });
         });
 
