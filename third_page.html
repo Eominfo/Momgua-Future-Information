@@ -259,6 +259,15 @@
             document.querySelector('.overlay').style.display = 'none';
         }
 
+        // "내용 보기" 클릭 시 팝업 열기 (모든 .view-details 요소에 적용)
+        document.querySelectorAll('.view-details').forEach(function(element) {
+            element.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('privacy-popup').style.display = 'block';
+                document.querySelector('.overlay').style.display = 'block';
+            });
+        });
+
         // 팝업 닫기 함수 및 값 설정
         function closePopup(type) {
             // "내용 보기" 팝업이 아닌 경우에만 입력값 처리
