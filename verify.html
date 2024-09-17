@@ -25,9 +25,6 @@
     <script>
         // 인증 완료 상태를 localStorage에 저장
         localStorage.setItem('emailVerified', 'true');
-
-        // 인증 완료 후 부모 창(세 번째 페이지)으로 메시지 전송
-        window.opener.postMessage('emailVerified', '*');
     </script>
 </body>
 </html>
