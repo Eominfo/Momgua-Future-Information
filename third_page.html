@@ -259,45 +259,48 @@
         })();
 
         document.getElementById('email-verify-btn').addEventListener('click', function() {
-            const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 주소 가져오기
-
+            // 이메일 인증 버튼 클릭 시 이메일 전송만 처리
+            const email = document.getElementById('email-input').value;
+            
             const templateParams = {
-                to_email: email,  // 사용자가 입력한 이메일 주소로 설정
-                verification_link: 'https://eominfo.github.io/Momgua-Future-Information/verify.html'  // 이메일 인증 링크
+                to_email: email,
+                verification_link: 'https://eominfo.github.io/Momgua-Future-Information/verify.html'
             };
 
-        emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
-            .then(function(response) {
-                alert('인증 이메일이 성공적으로 전송되었습니다.');
-            }, function(error) {
-                alert('이메일 전송에 실패했습니다. 오류 메시지: ' + JSON.stringify(error));  // 오류 메시지를 팝업으로 표시
-            });
+            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
+                .then(function(response) {
+                    alert('인증 이메일이 성공적으로 전송되었습니다.');
+                }, function(error) {
+                    alert('이메일 전송에 실패했습니다. 오류 메시지: ' + JSON.stringify(error));
+                });
         });
-        
+
         // "완료" 버튼 클릭 시 인증 상태 확인
         document.getElementById('email-popup').querySelector('button').addEventListener('click', function() {
+            // localStorage에서 인증 상태 확인
             const verifiedStatus = localStorage.getItem('emailVerified');
 
-            const messageElement = document.createElement('p');
+            // 기존 메시지 제거 후 새 메시지를 페이지에 표시
+            const existingMessage = document.querySelector('#verification-status');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
 
+            const messageElement = document.createElement('p');
+            messageElement.id = 'verification-status';  // 메시지 요소 ID 설정
+
+            // 인증 상태에 따라 다른 메시지 표시
             if (verifiedStatus === 'true') {
-                // 인증이 완료된 경우 초록색 글씨로 "인증되었습니다." 표시
                 messageElement.textContent = '인증되었습니다.';
                 messageElement.style.color = 'green';
             } else {
-                // 인증되지 않은 경우 빨간색 글씨로 "인증되지 않았습니다." 표시
                 messageElement.textContent = '인증되지 않았습니다.';
                 messageElement.style.color = 'red';
             }
 
             messageElement.style.fontSize = '12px';
-            // 기존 메시지를 덮어쓰지 않도록, 메시지가 한 번만 추가되게 설정
-            const existingMessage = document.getElementById('email-popup').querySelector('p');
-            if (existingMessage) {
-                existingMessage.remove();  // 기존 메시지를 제거
-            }        
-            
-            document.getElementById('email-popup').appendChild(messageElement);  // 팝업에 메시지 추가
+            // 메시지를 팝업이 아닌 페이지의 특정 위치에 추가 (여기서는 #email-result 아래)
+            document.getElementById('email-result').after(messageElement);
         });
     </script>
 
