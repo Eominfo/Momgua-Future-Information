@@ -312,6 +312,15 @@
             document.getElementById('email-result').after(messageElement);
         });
 
+        // 부모 창으로부터 인증 상태 메시지를 받을 준비
+        window.addEventListener('message', function(event) {
+            if (event.data === 'emailVerified') {
+                // 메시지를 받으면 localStorage에 저장된 상태를 업데이트
+                localStorage.setItem('emailVerified', 'true');
+                console.log('부모 창에서 받은 인증 상태: true');
+            }
+        });
+
 
     </script>
 
