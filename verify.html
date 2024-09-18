@@ -25,6 +25,7 @@
     <script>
         window.addEventListener('load', function() {
             localStorage.setItem('emailVerified', 'true');
+            window.opener.postMessage('emailVerified', '*');  // 부모 창으로 인증 상태 전송
             console.log('인증 완료: localStorage에 true가 저장되었습니다.');
         });
     </script>
