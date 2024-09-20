@@ -270,7 +270,7 @@
             const popupElement = document.getElementById(type + '-popup');
             const inputElement = document.getElementById(type + '-input');
 
-            // "privacy-popup" 또는 입력 필드가 존재하지 않는 팝업의 경우를 처리
+            // 입력 필드가 존재하는지 확인 후 값 처리
             if (inputElement) {
                 const inputValue = inputElement.value;
                 if (inputValue) {
@@ -280,7 +280,7 @@
                 console.warn(type + '-input 요소를 찾을 수 없습니다.');
             }
 
-            // 팝업 닫기
+            // 팝업 닫기 (입력 필드 값이 없어도 무조건 닫힙니다)
             if (popupElement) {
                 popupElement.style.display = 'none';  // 팝업 닫기
                 document.querySelector('.overlay').style.display = 'none';  // 배경 닫기
@@ -288,6 +288,7 @@
                 console.error('팝업을 찾을 수 없습니다:', type + '-popup');
             }
         }
+
         
         // 6자리 랜덤 인증번호 생성 함수
         function generateVerificationCode() {
