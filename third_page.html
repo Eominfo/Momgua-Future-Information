@@ -266,19 +266,30 @@
     
     <!-- 인증번호 생성 함수 추가 -->
     <script type="text/javascript">
-               function closePopup(type) {
+         function closePopup(type) {
+            // 팝업 요소를 찾는 과정
             const popupElement = document.getElementById(type + '-popup');
-            
-            // 입력 필드가 있는지 확인 후 처리 (존재하지 않으면 아무 작업도 하지 않음)
+            console.log("팝업 요소 확인:", popupElement);
+
+            // 입력 필드가 있는지 확인
             const inputElement = document.getElementById(type + '-input');
+            console.log("입력 필드 확인:", inputElement);
+
+            // 입력 필드가 존재할 경우에만 값 처리
             if (inputElement !== null && inputElement !== undefined) {
                 const inputValue = inputElement.value;
+                console.log("입력 필드 값:", inputValue);
+
                 if (inputValue) {
                     const resultElement = document.getElementById(type + '-result');
+                    console.log("결과 필드 확인:", resultElement);
+                    
                     if (resultElement !== null) {
                         resultElement.innerText = inputValue;  // 결과 영역에 값 표시
                     }
                 }
+            } else {
+                console.warn(`${type}-input 요소가 존재하지 않습니다.`);
             }
 
             // 팝업 닫기 (입력 필드와 상관없이 무조건 닫힘)
