@@ -246,45 +246,53 @@
 
     <!-- EmailJS 관련 자바스크립트 코드 추가 -->    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <!-- 인증번호 생성 함수 추가 -->
     <script type="text/javascript">
-        // 페이지 로드 시 localStorage를 초기화
-        window.addEventListener('load', function() {
-            // 페이지 로드 시 인증 상태가 없으면 'false'로 설정하여 초기화
-            if (!localStorage.getItem('emailVerified')) {
-                localStorage.setItem('emailVerified', 'false');
-            }
-        });
+        // 6자리 랜덤 인증번호 생성 함수
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();  // 6자리 랜덤 숫자 생성
+        }
         
         (function(){
             emailjs.init("fUyJgyf2lwm1GOfr4");  // YOUR_USER_ID는 EmailJS 대시보드에서 얻은 ID로 대체
         })();
 
         document.getElementById('email-verify-btn').addEventListener('click', function() {
-            // 이메일 인증 버튼 클릭 시 이메일 전송만 처리
-            const email = document.getElementById('email-input').value;
-            
+            const email = document.getElementById('email-input').value;  // 사용자가 입력한 이메일 주소 가져오기
+            const verificationCode = generateVerificationCode();  // 인증번호 생성
+            localStorage.setItem('verificationCode', verificationCode);  // 로컬 스토리지에 인증번호 저장
+
             const templateParams = {
-                to_email: email,
-                verification_link: 'https://sprightly-cupcake-7fea66.netlify.app/verify.html'
+                to_email: email,  // 사용자가 입력한 이메일 주소로 설정
+                verification_code: verificationCode  // 생성된 인증번호 추가
             };
 
             emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
                 .then(function(response) {
-                    const successMessage = document.createElement('p');
-                    successMessage.textContent = '인증 이메일이 성공적으로 전송되었습니다.';
-                    successMessage.style.color = 'green';
-                    successMessage.style.fontSize = '14px';
-                    document.getElementById('email-result').after(successMessage);  // 이메일 밑에 성공 메시지 표시
+                    alert('인증 이메일이 성공적으로 전송되었습니다.');
+
+                    // 5분 후 인증번호 만료 설정
+                    setTimeout(function() {
+                        localStorage.removeItem('verificationCode');
+                        alert('인증번호가 만료되었습니다.');
+                    }, 5 * 60 * 1000);  // 5분(300,000밀리초) 후에 인증번호 제거
                 }, function(error) {
-                    const errorMessage = document.createElement('p');
-                    errorMessage.textContent = '이메일 전송에 실패했습니다. 다시 시도해주세요.';
-                    errorMessage.style.color = 'red';
-                    errorMessage.style.fontSize = '14px';
-                    document.getElementById('email-result').after(errorMessage);  // 이메일 밑에 실패 메시지 표시
+                    alert('이메일 전송에 실패했습니다. 오류 메시지: ' + JSON.stringify(error));  // 오류 메시지를 팝업으로 표시
                 });
         });
 
         document.getElementById('email-complete-btn').addEventListener('click', function() {
+            const enteredCode = document.getElementById('verification-input').value;  // 사용자가 입력한 인증번호
+            const storedCode = localStorage.getItem('verificationCode');  // 로컬 스토리지에 저장된 인증번호
+
+            if (enteredCode === storedCode) {
+                localStorage.setItem('emailVerified', 'true');  // 인증 성공 시 상태 저장
+                alert('이메일 인증이 완료되었습니다.');
+            } else {
+                alert('잘못된 인증번호입니다.');
+            }
+
             const verifiedStatus = localStorage.getItem('emailVerified');
             console.log('저장된 인증 상태: ', verifiedStatus);  // 콘솔에 인증 상태 출력
 
@@ -321,7 +329,11 @@
             }
         });
 
-
+        // 6자리 랜덤 인증번호 생성 함수
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();  // 6자리 랜덤 숫자 생성
+            }
+        });
     </script>
 
     <script>
