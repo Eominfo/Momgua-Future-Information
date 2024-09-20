@@ -267,17 +267,12 @@
     <!-- 인증번호 생성 함수 추가 -->
     <script type="text/javascript">
         function closePopup(type) {
-            const inputElement = document.getElementById(type + '-input');
-            
-            if (inputElement) {
-                console.error("Element with ID: " + type + "-input not found");
-                return;  // inputElement가 없으면 함수 실행 중지
-                }
-                
-                const inputValue = inputElement.value;  // 입력된 값 가져오기
-               
-                if (inputValue) {
-                    document.getElementById(type + '-result').innerText = inputValue;  // 결과 영역에 값 표시
+            const popupElement = document.getElementById(type);  // type에 맞는 팝업 ID를 가져옴
+            if (popupElement) {
+                popupElement.style.display = 'none';  // 팝업을 닫음
+                document.querySelector('.overlay').style.display = 'none';  // 배경을 닫음
+            } else {
+                console.error('팝업을 찾을 수 없습니다:', type);
                 }
             }
             // 팝업 창 닫기
