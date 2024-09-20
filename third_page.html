@@ -268,19 +268,17 @@
     <script type="text/javascript">
         function closePopup(type) {
             const popupElement = document.getElementById(type + '-popup');
+            
+            // 입력 필드가 있는 팝업일 경우에만 처리
             const inputElement = document.getElementById(type + '-input');
-
-            // 입력 필드가 존재하는지 확인 후 값 처리
             if (inputElement) {
                 const inputValue = inputElement.value;
                 if (inputValue) {
                     document.getElementById(type + '-result').innerText = inputValue;  // 결과 영역에 값 표시
                 }
-            } else {
-                console.warn(type + '-input 요소를 찾을 수 없습니다.');
             }
 
-            // 팝업 닫기 (입력 필드 값이 없어도 무조건 닫힙니다)
+            // 팝업 닫기 (입력 필드와 상관없이 무조건 닫힘)
             if (popupElement) {
                 popupElement.style.display = 'none';  // 팝업 닫기
                 document.querySelector('.overlay').style.display = 'none';  // 배경 닫기
