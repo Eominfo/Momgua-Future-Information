@@ -267,17 +267,14 @@
     <!-- 인증번호 생성 함수 추가 -->
     <script type="text/javascript">
         function closePopup(type) {
-               console.log("type:", type);  // type 값이 'email'로 전달되는지 확인
             const popupElement = document.getElementById(type + '-popup');
-            console.log('팝업 요소:', popupElement);  // 팝업 요소가 제대로 존재하는지 확인
             const inputElement = document.getElementById(type + '-input');
-            console.log('입력 요소:', inputElement);  // 입력 요소가 제대로 존재하는지 확인
-            if (inputElement) {
-                const inputValue = inputElement.value;  // 입력된 값 가져오기
-                if (inputValue) {
-                    document.getElementById(type + '-result').innerText = inputValue;  // 결과 영역에 값 표시
-                }
+
+            // 입력 필드가 존재할 경우에만 값 처리
+            if (inputElement && inputElement.value) {
+                document.getElementById(type + '-result').innerText = inputElement.value;  // 결과 영역에 값 표시
             }
+
             if (popupElement) {
                 popupElement.style.display = 'none';  // 팝업 닫기
                 document.querySelector('.overlay').style.display = 'none';  // 배경 닫기
