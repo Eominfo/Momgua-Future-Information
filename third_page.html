@@ -172,6 +172,14 @@
             <p class="email-note">(인증된 이메일로 정보를 언제든지 확인하실 수 있는 링크를 보내드립니다)</p>
         </div>
 
+        <!-- 인증번호 입력 섹션 추가 -->
+        <div class="info-section">
+            <p>이메일로 받은 인증번호를 입력하세요:</p>
+            <input type="text" id="verification-input" placeholder="인증번호 입력">
+            <button id="email-complete-btn">인증 완료</button>
+            <div id="verification-status"></div> <!-- 인증 상태 표시 -->
+        </div>
+
         <div class="container">
             <!-- 버튼 섹션 -->
             <div class="bottom-buttons">
@@ -317,7 +325,7 @@
             }
 
             // 인증 상태 메시지 추가
-            document.getElementById('email-result').after(messageElement);
+            document.getElementById('verification-status').after(messageElement);
         });
 
         // 부모 창으로부터 인증 상태 메시지를 받을 준비
