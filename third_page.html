@@ -269,12 +269,15 @@
         function closePopup(type) {
             const popupElement = document.getElementById(type + '-popup');
             
-            // 입력 필드가 있는 팝업일 경우에만 처리
+            // 입력 필드가 있는지 확인 후 처리 (존재하지 않으면 아무 작업도 하지 않음)
             const inputElement = document.getElementById(type + '-input');
-            if (inputElement) {
+            if (inputElement !== null && inputElement !== undefined) {
                 const inputValue = inputElement.value;
                 if (inputValue) {
-                    document.getElementById(type + '-result').innerText = inputValue;  // 결과 영역에 값 표시
+                    const resultElement = document.getElementById(type + '-result');
+                    if (resultElement !== null) {
+                        resultElement.innerText = inputValue;  // 결과 영역에 값 표시
+                    }
                 }
             }
 
@@ -286,7 +289,7 @@
                 console.error('팝업을 찾을 수 없습니다:', type + '-popup');
             }
         }
-        
+
         // 6자리 랜덤 인증번호 생성 함수
         function generateVerificationCode() {
             return Math.floor(100000 + Math.random() * 900000).toString();  // 6자리 랜덤 숫자 생성
