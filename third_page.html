@@ -169,7 +169,6 @@
             <h3>성명 입력</h3>
             <input type="text" id="name-input">
             <button onclick="closeNamePopup()">완료</button>
-            <button onclick="closePopup('name-popup')">닫기</button>
         </div>
 
         <!-- 생년월일 입력 팝업 -->
@@ -177,7 +176,6 @@
             <h3>생년월일(8자리) 입력</h3>
             <input type="text" id="birthdate-input" maxlength="8">
             <button onclick="closeBirthdatePopup()">완료</button>
-            <button onclick="closePopup('birthdate-popup')">닫기</button>
         </div>
 
         <!-- 개인정보 내용 보기 팝업 -->
@@ -324,7 +322,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("YOUR_USER_ID");  // EmailJS에서 제공한 사용자 ID로 대체
+            emailjs.init("fUyJgyf2lwm1GOfr4");  // EmailJS에서 제공한 사용자 ID로 대체
         })();
 
         // 인증번호 생성 함수
@@ -344,7 +342,7 @@
             };
 
             // EmailJS로 이메일 전송
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
                 .then(function(response) {
                     alert('인증 이메일이 성공적으로 전송되었습니다.');
                 }, function(error) {
