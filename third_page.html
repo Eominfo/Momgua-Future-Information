@@ -87,7 +87,7 @@
             padding: 10px 20px;
             cursor: pointer;
         }
-        
+       
         #email-verify-btn {
             font-size: 16px; /* 팝업 닫기 버튼과 동일한 폰트 크기 */
             font-weight: normal; /* 닫기 버튼과 동일한 글씨 굵기 */
@@ -99,7 +99,7 @@
 
         #email-verify-btn:hover {
             background-color: #f0f0f0; /* 호버 시 배경색 변화 */
-        }       
+        }      
 
         /* 팝업 스타일 */
         .popup {
@@ -247,7 +247,7 @@
         <input type="text" id="name-input">
         <button onclick="closePopup('name')">완료</button>
     </div>
-        
+       
     <div class="popup" id="birthdate-popup">
         <h3>생년월일(8자리) 입력</h3>
         <input type="text" id="birthdate-input" maxlength="8">
@@ -263,46 +263,14 @@
 
     <!-- EmailJS 관련 자바스크립트 코드 추가 -->    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    
+
     <!-- 인증번호 생성 함수 추가 -->
     <script type="text/javascript">
-        function closePopup(type) {
-            // 팝업 요소를 찾는 과정
-            const popupElement = document.getElementById(type + '-popup');
-            console.log("팝업 요소 확인:", popupElement);
-
-            // 입력 필드가 있는지 확인 (존재하지 않으면 바로 종료)
-            const inputElement = document.getElementById(type + '-input');
-            console.log("입력 필드 확인:", inputElement);
-
-            if (inputElement) {
-                const inputValue = inputElement.value;
-                console.log("입력 필드 값:", inputValue);
-
-                if (inputValue) {
-                    const resultElement = document.getElementById(type + '-result');
-                    console.log("결과 필드 확인:", resultElement);
-
-                    if (resultElement) {
-                        resultElement.innerText = inputValue;  // 결과 영역에 값 표시
-                    }
-                }
-            }
-
-            // 팝업 닫기 (입력 필드와 상관없이 무조건 닫힙니다)
-            if (popupElement) {
-                popupElement.style.display = 'none';  // 팝업 닫기
-                document.querySelector('.overlay').style.display = 'none';  // 배경 닫기
-            } else {
-                console.error('팝업을 찾을 수 없습니다:', type + '-popup');
-            }
-        }
-
         // 6자리 랜덤 인증번호 생성 함수
         function generateVerificationCode() {
             return Math.floor(100000 + Math.random() * 900000).toString();  // 6자리 랜덤 숫자 생성
         }
-        
+       
         (function(){
             emailjs.init("fUyJgyf2lwm1GOfr4");  // YOUR_USER_ID는 EmailJS 대시보드에서 얻은 ID로 대체
         })();
@@ -383,68 +351,50 @@
     <script>
         // 팝업 닫기 함수 및 값 설정
         function closePopup(type) {
-            // "내용 보기" 팝업이 아닌 경우에만 입력값 처리
-            if (type !== 'privacy') {
-                const inputValue = document.getElementById(type + '-input').value; // 입력된 값 가져오기
-                if (inputValue) {
-                    document.getElementById(type + '-result').innerText = inputValue; // 결과 영역에 값 표시
+                // "내용 보기" 팝업이 아닌 경우에만 입력값 처리
+                if (type !== 'privacy') {
+                        const inputValue = document.getElementById(type + '-input') 
+                                ? document.getElementById(type + '-input').value : ''; // 입력된 값 가져오기 (존재하는 경우에만)
+                        if (inputValue) {
+                                document.getElementById(type + '-result').innerText = inputValue; // 결과 영역에 값 표시
+                        }
                 }
-            }
-            document.getElementById(type + '-popup').style.display = 'none';
-            document.querySelector('.overlay').style.display = 'none';
+                document.getElementById(type + '-popup').style.display = 'none';
+                document.querySelector('.overlay').style.display = 'none';
         }
 
         // "내용 보기" 클릭 시 팝업 열기 (모든 .view-details 요소에 적용)
         document.querySelectorAll('.view-details').forEach(function(element) {
-            element.addEventListener('click', function(event) {
-                event.preventDefault();
-                document.getElementById('privacy-popup').style.display = 'block';
-                document.querySelector('.overlay').style.display = 'block';
-            });
+                element.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        document.getElementById('privacy-popup').style.display = 'block';
+                        document.querySelector('.overlay').style.display = 'block';
+                });
         });
-
-        // 팝업 닫기 함수 및 값 설정
-        function closePopup(type) {
-            // "내용 보기" 팝업이 아닌 경우에만 입력값 처리
-            if (type !== 'privacy') {
-                const inputValue = document.getElementById(type + '-input').value; // 입력된 값 가져오기
-                if (inputValue) {
-                    document.getElementById(type + '-result').innerText = inputValue; // 결과 영역에 값 표시
-                }
-            }
-            document.getElementById(type + '-popup').style.display = 'none';
-            document.querySelector('.overlay').style.display = 'none';
-        }
-
-        // 팝업 열기 함수
-        function openPopup(type) {
-            document.getElementById(type + '-popup').style.display = 'block';
-            document.querySelector('.overlay').style.display = 'block';
-        }
 
         // 성명, 생년월일, 이메일 클릭 시 팝업 열기
         document.getElementById('name').addEventListener('click', function() {
-            openPopup('name');
+                openPopup('name');
         });
 
         document.getElementById('birthdate').addEventListener('click', function() {
-            openPopup('birthdate');
+                openPopup('birthdate');
         });
 
         document.getElementById('email').addEventListener('click', function() {
-            openPopup('email');
+                openPopup('email');
         });
-
 
         // "이전" 버튼 클릭 시 이전 페이지로 돌아가기
         document.getElementById('prev-button').addEventListener('click', function() {
-            window.history.back();
+                window.history.back();
         });
 
         // "다음" 버튼 클릭 시 다음 페이지로 이동
         document.getElementById('next-button').addEventListener('click', function() {
-            window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
+                window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
         });
     </script>
 </body>
 </html>
+
