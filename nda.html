@@ -172,15 +172,6 @@ body {
         </div>
     </div>
 
-    <!-- 날짜 입력 팝업 -->
-    <div id="date-popup" class="popup">
-        <h2>날짜 입력</h2>
-        <input type="date" id="date-input">
-        <div class="popup-buttons">
-            <button id="date-complete">완료</button>
-        </div>
-    </div>
-
     <!-- 성명 입력 팝업 -->
     <div id="name-popup" class="popup">
         <h2>성명 입력</h2>
@@ -200,6 +191,15 @@ body {
         </div>
     </div>
 
+    <!-- 날짜 입력 팝업 -->
+    <div id="date-popup" class="popup">
+        <h2>날짜 입력</h2>
+        <input type="date" id="date-input">
+        <div class="popup-buttons">
+            <button id="date-complete">완료</button>
+        </div>
+    </div>
+    
     <!-- 배경 어둡게 하는 오버레이 -->
     <div id="overlay" class="overlay"></div>
 
@@ -231,17 +231,19 @@ body {
             overlay.style.display = 'none';
         }
 
-        // 날짜 클릭 이벤트
-        dateClick.addEventListener('click', () => {
-            openPopup(datePopup);
+        // 성명 클릭 시 팝업 열기
+        document.getElementById('name-click').addEventListener('click', () => {
+            openPopup(document.getElementById('name-popup'));
         });
 
-        dateCompleteBtn.addEventListener('click', () => {
-            const dateValue = dateInput.value;
-            if (dateValue) {
-                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
+        // 성명 완료 버튼 클릭 시 팝업 닫고 결과 표시
+        document.getElementById('name-complete').addEventListener('click', () => {
+            const nameInput = document.getElementById('name-input').value;
+            const nameDisplay = document.getElementById('name-display');
+            if (nameInput) {
+                nameDisplay.textContent = `입력한 성명: ${nameInput}`;
             }
-            closePopup(datePopup);
+            closePopup(document.getElementById('name-popup'));
         });
 
         // 서명 클릭 이벤트
@@ -305,6 +307,19 @@ body {
 
         canvas.addEventListener('touchend', () => {
             drawing = false;
+        });
+
+                // 날짜 클릭 이벤트
+        dateClick.addEventListener('click', () => {
+            openPopup(datePopup);
+        });
+
+        dateCompleteBtn.addEventListener('click', () => {
+            const dateValue = dateInput.value;
+            if (dateValue) {
+                dateDisplay.textContent = `입력한 날짜: ${dateValue}`;
+            }
+            closePopup(datePopup);
         });
 
         // 이전 버튼 (첫 화면으로 이동)
