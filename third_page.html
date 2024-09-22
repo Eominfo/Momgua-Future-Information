@@ -130,7 +130,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
-        
+       
         /* 개인정보 수집 및 이용 동의서 팝업 내용을 왼쪽 정렬 */
         .popup-content {
             text-align: left; /* 텍스트 왼쪽 정렬 */
@@ -152,7 +152,7 @@
             <p id="mbti">MBTI (클릭)</p>
             <div id="mbti-result" class="result"></div>
             <div id="mbti-error" class="error-message"></div> <!-- MBTI 오류 메시지 추가 -->
-            
+           
             <p id="birthdate">생년월일(8자리) (클릭)</p>
             <div id="birthdate-result" class="result"></div>
             <div id="birthdate-error" class="error-message"></div> <!-- 생년월일 오류 메시지 추가 -->
@@ -240,11 +240,9 @@
             <button id="prev-button">이전</button>
             <button id="next-button">다음</button>
         </div>
+
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    
     <!-- 팝업 열고 닫기 자바스크립트 -->
     <script>
         let isEmailVerified = false;
@@ -298,7 +296,7 @@
             }
             closePopup('email-popup');
         }
-        
+       
         // 팝업 열고 닫기 함수
         function openPopup(type) {
             document.getElementById(type).style.display = 'block';
@@ -309,7 +307,7 @@
             document.getElementById(type).style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
-        
+       
         // MBTI, 생년월일, 이메일 클릭 시 팝업 열기
         document.getElementById('mbti').addEventListener('click', function() {
             openPopup('mbti-popup');
@@ -426,95 +424,6 @@
             } else {
                 alert('잘못된 인증번호입니다.');
                 isEmailVerified = false; // 인증 실패
-            }
-        });
-
-                <!-- Firebase 설정 코드 -->
-        <script>
-            // Your web app's Firebase configuration
-            var firebaseConfig = {
-                apiKey: "AIzaSyB1gRgyNbtlsBBdLemLyy69qEIT_d1_Ak",
-                authDomain: "eominfoservice-a4228.firebaseapp.com",
-                projectId: "eominfoservice-a4228",
-                storageBucket: "eominfoservice-a4228.appspot.com",
-                messagingSenderId: "1037157448348",
-                appId: "1:1037157448348:web:949c21fce6f3240f44cb59",
-                measurementId: "G-88HPG36NFG"
-            };
-
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            var db = firebase.firestore();
-
-            // Firestore에 데이터 저장하는 함수
-            function saveUserData(mbti, birthdate, email) {
-                db.collection("users").doc(email).set({
-                    mbti: mbti,
-                    birthdate: birthdate,
-                    email: email
-                })
-                .then(function() {
-                    console.log("User data saved successfully!");
-                })    
-                .catch(function(error) {
-                    console.error("Error adding document: ", error);
-                });
-            }
-    </script>
-    
-    <!-- "다음" 버튼 클릭 시 입력 데이터 확인 및 Firestore 저장 -->
-    <script>
-        document.getElementById('next-button').addEventListener('click', function() {
-            let isValid = true;
-
-            // 체크박스 확인
-            const checkbox = document.getElementById('agree-checkbox');
-            const checkboxError = document.getElementById('checkbox-error');
-            if (!checkbox.checked) {
-                checkboxError.textContent = '체크되지 않았습니다.';
-                checkboxError.style.color = 'red';
-                isValid = false;
-            } else {
-                checkboxError.textContent = '';  // 오류 메시지 제거
-            }
-
-            // MBTI 입력 확인
-            const mbtiInput = document.getElementById('mbti-input').value;
-            const mbtiError = document.getElementById('mbti-error');
-            if (!mbtiInput) {
-                mbtiError.textContent = '입력되지 않았습니다.';
-                mbtiError.style.color = 'red';
-                isValid = false;
-            } else {
-                mbtiError.textContent = '';  // 오류 메시지 제거
-            }
-
-            // 생년월일 입력 확인
-            const birthdateInput = document.getElementById('birthdate-input').value;
-            const birthdateError = document.getElementById('birthdate-error');
-            if (!birthdateInput) {
-                birthdateError.textContent = '입력되지 않았습니다.';
-                birthdateError.style.color = 'red';
-                isValid = false;
-            } else {
-                birthdateError.textContent = '';  // 오류 메시지 제거
-            }
-
-            // 이메일 인증 확인
-            const emailError = document.getElementById('email-error');
-            const emailInput = document.getElementById('email-input').value;
-            if (!isEmailVerified) {
-                emailError.textContent = '인증되지 않았습니다.';
-                emailError.style.color = 'red';
-                isValid = false;
-            } else {
-                emailError.textContent = '';  // 오류 메시지 제거
-            }
-
-            // 모든 입력이 올바른 경우 Firestore에 데이터 저장
-            if (isValid) {
-                saveUserData(mbtiInput, birthdateInput, emailInput); // Firestore에 저장
-                window.location.href = 'fourth_page.html'; // 네 번째 페이지로 이동
             }
         });
     </script>
