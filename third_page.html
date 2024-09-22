@@ -143,8 +143,8 @@
         </div>
 
         <div class="info-section">
-            <p id="name">성명 (클릭)</p>
-            <div id="name-result" class="result"></div>
+            <p id="mbti">MBTI (클릭)</p>
+            <div id="mbti-result" class="result"></div>
             <p id="birthdate">생년월일(8자리) (클릭)</p>
             <div id="birthdate-result" class="result"></div>
             <p id="email">이메일 인증 (클릭)</p>
@@ -164,11 +164,11 @@
             <button onclick="closeEmailPopup()">닫기</button>
         </div>
 
-        <!-- 성명 입력 팝업 -->
-        <div class="popup" id="name-popup">
-            <h3>성명 입력</h3>
-            <input type="text" id="name-input">
-            <button onclick="closeNamePopup()">완료</button>
+        <!-- MBTI 입력 팝업 -->
+        <div class="popup" id="mbti-popup">
+            <h3>MBTI 입력</h3>
+            <input type="text" id="mbti-input">
+            <button onclick="closeMbtiPopup()">완료</button>
         </div>
 
         <!-- 생년월일 입력 팝업 -->
@@ -253,18 +253,18 @@
             openPopup('privacy-popup');
         }
 
-        // 성명 팝업 닫기
-        function closeNamePopup() {
-            const nameInput = document.getElementById('name-input').value;
-            const result = document.getElementById('name-result');
-            if (nameInput) {
+        // MBTI 팝업 닫기
+        function closeMbtiPopup() {
+            const mbtiInput = document.getElementById('mbti-input').value;
+            const result = document.getElementById('mbti-result');
+            if (mbtiInput) {
                 result.textContent = '입력되었습니다.';
                 result.className = 'success';
             } else {
                 result.textContent = '입력되지 않았습니다.';
                 result.className = 'error';
             }
-            closePopup('name-popup');
+            closePopup('mbti-popup');
         }
 
         // 생년월일 팝업 닫기
@@ -294,9 +294,9 @@
             closePopup('email-popup');
         }
 
-        // 성명, 생년월일, 이메일 클릭 시 팝업 열기
-        document.getElementById('name').addEventListener('click', function() {
-            openPopup('name-popup');
+        // MBTI, 생년월일, 이메일 클릭 시 팝업 열기
+        document.getElementById('mbti').addEventListener('click', function() {
+            openPopup('mbti-popup');
         });
 
         document.getElementById('birthdate').addEventListener('click', function() {
