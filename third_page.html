@@ -279,12 +279,24 @@
         function closeEmailPopup() {
             const result = document.getElementById('email-result');
             if (isEmailVerified) {
+                const emailInput = document.getElementById('email-input').value;
                 result.textContent = `인증된 이메일: ${emailInput}`;
-                result.className = 'black'; // 입력된 이메일 주소 표시
+                result.style.color = 'black'; // 입력된 이메일 주소 표시
             }
             closePopup('email-popup');
         }
+        
+        // 팝업 열고 닫기 함수
+        function openPopup(type) {
+            document.getElementById(type).style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
 
+        function closePopup(type) {
+            document.getElementById(type).style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        
         // MBTI, 생년월일, 이메일 클릭 시 팝업 열기
         document.getElementById('mbti').addEventListener('click', function() {
             openPopup('mbti-popup');
