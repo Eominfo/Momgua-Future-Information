@@ -258,11 +258,8 @@
             const mbtiInput = document.getElementById('mbti-input').value;
             const result = document.getElementById('mbti-result');
             if (mbtiInput) {
-                result.textContent = '입력되었습니다.';
-                result.className = 'success';
-            } else {
-                result.textContent = '입력되지 않았습니다.';
-                result.className = 'error';
+                result.textContent = '입력한 MBTI: ${mbtiInput}';
+                result.className = 'black'; // 입력된 값 표시
             }
             closePopup('mbti-popup');
         }
@@ -272,11 +269,8 @@
             const birthdateInput = document.getElementById('birthdate-input').value;
             const result = document.getElementById('birthdate-result');
             if (birthdateInput) {
-                result.textContent = '입력되었습니다.';
-                result.className = 'success';
-            } else {
-                result.textContent = '입력되지 않았습니다.';
-                result.className = 'error';
+                result.textContent = `입력한 생년월일: ${birthdateInput}`;
+                result.className = 'black'; // 입력된 값 표시
             }
             closePopup('birthdate-popup');
         }
@@ -285,11 +279,8 @@
         function closeEmailPopup() {
             const result = document.getElementById('email-result');
             if (isEmailVerified) {
-                result.textContent = '인증되었습니다.';
-                result.className = 'success';
-            } else {
-                result.textContent = '인증되지 않았습니다.';
-                result.className = 'error';
+                result.textContent = `인증된 이메일: ${emailInput}`;
+                result.className = 'black'; // 입력된 이메일 주소 표시
             }
             closePopup('email-popup');
         }
