@@ -320,9 +320,57 @@
             window.history.back();
         });
 
-        // "다음" 버튼 클릭 시 다음 페이지로 이동
+       // "다음" 버튼 클릭 시 입력 확인
         document.getElementById('next-button').addEventListener('click', function() {
-            window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
+            let isValid = true;
+
+            // 체크박스 확인
+            const checkbox = document.getElementById('agree-checkbox');
+            const checkboxError = document.getElementById('checkbox-error');
+            if (!checkbox.checked) {
+                checkboxError.textContent = '체크되지 않았습니다.';
+                checkboxError.style.color = 'red';
+                isValid = false;
+            } else {
+                checkboxError.textContent = '';  // 오류 메시지 제거
+            }
+
+            // MBTI 입력 확인
+            const mbtiInput = document.getElementById('mbti-input').value;
+            const mbtiError = document.getElementById('mbti-error');
+            if (!mbtiInput) {
+                mbtiError.textContent = '입력되지 않았습니다.';
+                mbtiError.style.color = 'red';
+                isValid = false;
+            } else {
+                mbtiError.textContent = '';  // 오류 메시지 제거
+            }
+
+            // 생년월일 입력 확인
+            const birthdateInput = document.getElementById('birthdate-input').value;
+            const birthdateError = document.getElementById('birthdate-error');
+            if (!birthdateInput) {
+                birthdateError.textContent = '입력되지 않았습니다.';
+                birthdateError.style.color = 'red';
+                isValid = false;
+            } else {
+                birthdateError.textContent = '';  // 오류 메시지 제거
+            }
+
+            // 이메일 인증 확인
+            const emailError = document.getElementById('email-error');
+            if (!isEmailVerified) {
+                emailError.textContent = '인증되지 않았습니다.';
+                emailError.style.color = 'red';
+                isValid = false;
+            } else {
+                emailError.textContent = '';  // 오류 메시지 제거
+            }
+
+            // 모든 입력이 올바른 경우 다음 페이지로 이동
+            if (isValid) {
+                window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
+            }
         });
     </script>
 
