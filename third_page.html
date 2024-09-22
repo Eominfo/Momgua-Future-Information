@@ -68,7 +68,7 @@
             max-width: 800px;
             margin: 50px auto;
             position: absolute;
-            bottom: -40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -152,7 +152,19 @@
             <button onclick="closePopup('email-popup')">닫기</button>
         </div>
 
-        <div class="overlay" id="overlay"></div>
+        <!-- 성명 입력 팝업 -->
+        <div class="popup" id="name-popup">
+            <h3>성명 입력</h3>
+            <input type="text" id="name-input">
+            <button onclick="closePopup('name-popup')">완료</button>
+        </div>
+
+        <!-- 생년월일 입력 팝업 -->
+        <div class="popup" id="birthdate-popup">
+            <h3>생년월일(8자리) 입력</h3>
+            <input type="text" id="birthdate-input" maxlength="8">
+            <button onclick="closePopup('birthdate-popup')">완료</button>
+        </div>
 
         <!-- 개인정보 내용 보기 팝업 -->
         <div id="privacy-popup" class="popup">
@@ -161,6 +173,14 @@
                 <p>여기에 개인정보 수집 및 이용에 관한 내용을 넣으시면 됩니다...</p>
             </div>
             <button onclick="closePopup('privacy-popup')">닫기</button>
+        </div>
+
+        <div class="overlay" id="overlay"></div>
+
+        <!-- 버튼 섹션 -->
+        <div class="bottom-buttons">
+            <button id="prev-button">이전</button>
+            <button id="next-button">다음</button>
         </div>
 
     </div>
@@ -196,12 +216,25 @@
         document.getElementById('email').addEventListener('click', function() {
             openPopup('email-popup');
         });
+
+        // "이전" 버튼 클릭 시 이전 페이지로 돌아가기
+        document.getElementById('prev-button').addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // "다음" 버튼 클릭 시 다음 페이지로 이동
+        document.getElementById('next-button').addEventListener('click', function() {
+            window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
+        });
     </script>
 
     <!-- EmailJS 관련 자바스크립트 및 기타 인증 로직 유지 -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
         // 인증번호 생성 및 EmailJS 코드 유지
+        document.getElementById('email-verify-btn').addEventListener('click', function() {
+            // 이메일 인증 버튼 관련 로직 추가
+        });
     </script>
 
 </body>
