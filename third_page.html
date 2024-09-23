@@ -168,9 +168,9 @@
         </div>
 
         <div class="info-section">
-            <p id="mbti">MBTI (클릭)</p>
-            <div id="mbti-result" class="result"></div>
-            <div id="mbti-error" class="error-message"></div> <!-- MBTI 오류 메시지 추가 -->
+            <p id="name">성명 (클릭)</p>
+            <div id="name-result" class="result"></div>
+            <div id="name-error" class="error-message"></div> <!-- 성명 오류 메시지 추가 -->
            
             <p id="birthdate">생년월일(8자리) (클릭)</p>
             <div id="birthdate-result" class="result"></div>
@@ -194,11 +194,11 @@
             <button onclick="closeEmailPopup()">닫기</button>
         </div>
 
-        <!-- MBTI 입력 팝업 -->
-        <div class="popup" id="mbti-popup">
-            <h3>MBTI 입력</h3>
-            <input type="text" id="mbti-input">
-            <button onclick="closeMbtiPopup()">완료</button>
+        <!-- 성명 입력 팝업 -->
+        <div class="popup" id="name-popup">
+            <h3>성명 입력</h3>
+            <input type="text" id="name-input">
+            <button onclick="closeNamePopup()">완료</button>
         </div>
 
         <!-- 생년월일 입력 팝업 -->
@@ -283,15 +283,15 @@
             openPopup('privacy-popup');
         }
 
-        // MBTI 팝업 닫기
-        function closeMbtiPopup() {
-            const mbtiInput = document.getElementById('mbti-input').value;
-            const result = document.getElementById('mbti-result');
-            if (mbtiInput) {
-                result.textContent = `입력한 MBTI: ${mbtiInput}`;
+        // 성명 팝업 닫기
+        function closeNamePopup() {
+            const nameInput = document.getElementById('name-input').value;
+            const result = document.getElementById('name-result');
+            if (nameInput) {
+                result.textContent = `입력한 성명: ${nameInput}`;
                 result.className = 'black'; // 입력된 값 표시
             }
-            closePopup('mbti-popup');
+            closePopup('name-popup');
         }
 
         // 생년월일 팝업 닫기
@@ -327,9 +327,9 @@
             document.getElementById('overlay').style.display = 'none';
         }
        
-        // MBTI, 생년월일, 이메일 클릭 시 팝업 열기
-        document.getElementById('mbti').addEventListener('click', function() {
-            openPopup('mbti-popup');
+        // 성명, 생년월일, 이메일 클릭 시 팝업 열기
+        document.getElementById('name').addEventListener('click', function() {
+            openPopup('name-popup');
         });
 
         document.getElementById('birthdate').addEventListener('click', function() {
@@ -360,15 +360,15 @@
                 checkboxError.textContent = '';  // 오류 메시지 제거
             }
 
-            // MBTI 입력 확인
-            const mbtiInput = document.getElementById('mbti-input').value;
-            const mbtiError = document.getElementById('mbti-error');
-            if (!mbtiInput) {
-                mbtiError.textContent = '입력되지 않았습니다.';
-                mbtiError.style.color = 'red';
+            // 성명 입력 확인
+            const nameInput = document.getElementById('name-input').value;
+            const nameError = document.getElementById('name-error');
+            if (!nameInput) {
+                nameError.textContent = '입력되지 않았습니다.';
+                nameError.style.color = 'red';
                 isValid = false;
             } else {
-                mbtiError.textContent = '';  // 오류 메시지 제거
+                nameError.textContent = '';  // 오류 메시지 제거
             }
 
             // 생년월일 입력 확인
@@ -458,11 +458,11 @@
             // 유효성 검사를 통과한 경우 Firestore에 데이터 저장
             if (isValid) {
                 var email = document.getElementById('email-input').value;
-                var mbti = document.getElementById('mbti-input').value;
+                var name = document.getElementById('name-input').value;
                 var birthdate = document.getElementById('birthdate-input').value;
 
                 db.collection("users").doc(email).set({
-                    mbti: mbti,
+                    name: name,
                     birthdate: birthdate,
                     email: email
                 })
