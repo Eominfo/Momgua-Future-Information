@@ -339,7 +339,57 @@
         document.getElementById('email').addEventListener('click', function() {
             openPopup('email-popup');
         });
+    </script>
+    
+    <!-- EmailJS 관련 자바스크립트 및 기타 인증 로직 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("fUyJgyf2lwm1GOfr4");  // EmailJS에서 제공한 사용자 ID로 대체
+        })();
 
+        // 인증번호 생성 함수
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString(); // 6자리 랜덤 인증번호 생성
+        }
+
+        // 이메일 인증 버튼 클릭 시 실행될 이벤트 리스너
+        document.getElementById('email-verify-btn').addEventListener('click', function() {
+            const email = document.getElementById('email-input').value; // 이메일 입력값 가져오기
+            const verificationCode = generateVerificationCode(); // 인증번호 생성
+            localStorage.setItem('verificationCode', verificationCode); // 인증번호 로컬 스토리지에 저장
+
+            const templateParams = {
+                to_email: email, // 이메일 주소
+                verification_code: verificationCode // 생성된 인증번호
+            };
+
+            // EmailJS로 이메일 전송
+            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
+                .then(function(response) {
+                    alert('인증 이메일이 성공적으로 전송되었습니다.');
+                }, function(error) {
+                    alert('이메일 전송에 실패했습니다. 오류: ' + JSON.stringify(error));
+                });
+        });
+
+        // 인증 완료 버튼 클릭 시 인증번호 확인
+        document.getElementById('email-complete-btn').addEventListener('click', function() {
+            const enteredCode = document.getElementById('verification-input').value; // 사용자가 입력한 인증번호
+            const storedCode = localStorage.getItem('verificationCode'); // 로컬 스토리지에서 인증번호 가져오기
+
+            if (enteredCode === storedCode) {
+                alert('이메일 인증이 완료되었습니다.');
+                localStorage.setItem('emailVerified', 'true'); // 인증 성공 시 상태 저장
+                isEmailVerified = true; // 인증 성공
+            } else {
+                alert('잘못된 인증번호입니다.');
+                isEmailVerified = false; // 인증 실패
+            }
+        });
+    </script>
+
+    <script>
         // "이전" 버튼 클릭 시 이전 페이지로 돌아가기
         document.getElementById('prev-button').addEventListener('click', function() {
             window.history.back();
@@ -392,76 +442,21 @@
                 emailError.textContent = '';  // 오류 메시지 제거
             }
 
-            // 모든 입력이 올바른 경우 다음 페이지로 이동
+            // 모든 입력이 올바른 경우 Firestore에 데이터 저장
             if (isValid) {
-                window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
-            }
-        });
-    </script>
-
-    <!-- EmailJS 관련 자바스크립트 및 기타 인증 로직 -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("fUyJgyf2lwm1GOfr4");  // EmailJS에서 제공한 사용자 ID로 대체
-        })();
-
-        // 인증번호 생성 함수
-        function generateVerificationCode() {
-            return Math.floor(100000 + Math.random() * 900000).toString(); // 6자리 랜덤 인증번호 생성
-        }
-
-        // 이메일 인증 버튼 클릭 시 실행될 이벤트 리스너
-        document.getElementById('email-verify-btn').addEventListener('click', function() {
-            const email = document.getElementById('email-input').value; // 이메일 입력값 가져오기
-            const verificationCode = generateVerificationCode(); // 인증번호 생성
-            localStorage.setItem('verificationCode', verificationCode); // 인증번호 로컬 스토리지에 저장
-
-            const templateParams = {
-                to_email: email, // 이메일 주소
-                verification_code: verificationCode // 생성된 인증번호
-            };
-
-            // EmailJS로 이메일 전송
-            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
-                .then(function(response) {
-                    alert('인증 이메일이 성공적으로 전송되었습니다.');
-                }, function(error) {
-                    alert('이메일 전송에 실패했습니다. 오류: ' + JSON.stringify(error));
-                });
-        });
-
-        // 인증 완료 버튼 클릭 시 인증번호 확인
-        document.getElementById('email-complete-btn').addEventListener('click', function() {
-            const enteredCode = document.getElementById('verification-input').value; // 사용자가 입력한 인증번호
-            const storedCode = localStorage.getItem('verificationCode'); // 로컬 스토리지에서 인증번호 가져오기
-
-            if (enteredCode === storedCode) {
-                alert('이메일 인증이 완료되었습니다.');
-                localStorage.setItem('emailVerified', 'true'); // 인증 성공 시 상태 저장
-                isEmailVerified = true; // 인증 성공
-            } else {
-                alert('잘못된 인증번호입니다.');
-                isEmailVerified = false; // 인증 실패
-            }
-        });
-    </script>
-    
-    <!-- Firestore 데이터 저장 및 "다음" 버튼 클릭 처리 -->
-    <script>
-        document.getElementById('next-button').addEventListener('click', function() {
-            let isValid = true;
-
-            // 데이터 유효성 검사 (이메일, MBTI, 생년월일, 체크박스)
-            // 유효성 검사 코드 생략 (이미 작성됨)
-
-            // 유효성 검사를 통과한 경우 Firestore에 데이터 저장
-            if (isValid) {
-                var email = document.getElementById('email-input').value;
+                // 로컬 스토리지에서 데이터를 불러옴
+                let userName = localStorage.getItem('userName');
+                let signatureImage = localStorage.getItem('signatureImage'); // 서명 이미지 불러오기
+                let dateValue = localStorage.getItem('dateValue'); // 날짜 값 가져오기
+         
                 var mbti = document.getElementById('mbti-input').value;
+                var email = document.getElementById('email-input').value;
                 var birthdate = document.getElementById('birthdate-input').value;
 
                 db.collection("users").doc(email).set({
+                    userName: userName,
+                    signatureImage: signatureImage,
+                    date: dateValue, // 저장된 날짜 값 추가
                     mbti: mbti,
                     birthdate: birthdate,
                     email: email
@@ -476,8 +471,5 @@
             }
         });
     </script>
-</body>
-</html>
-
 </body>
 </html>
