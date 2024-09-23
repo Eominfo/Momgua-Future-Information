@@ -334,11 +334,13 @@
         });
 
         // 다음 버튼 클릭 시 검증 및 페이지 이동
-        document.getElementById('next-btn').addEventListener('click', () => {
+        document.getElementById('next-button').addEventListener('click', function() {
             // 입력된 값 가져오기
-            const nameValue = nameInput.value;
-            const dateValue = dateInput.value;
-            const signatureImage = canvas.toDataURL();
+            let userName = document.getElementById('name-input').value;
+            let birthdate = document.getElementById('birthdate-input').value;
+            
+            const canvas = document.getElementById('signature-canvas');
+            const signatureImage = canvas.toDataURL(); // 서명 이미지 가져오기
 
             let allFilled = true;
 
@@ -365,6 +367,11 @@
 
             // 모든 항목이 기입되었을 때만 페이지 이동
             if (allFilled) {
+                // 입력된 값들을 로컬 스토리지에 저장
+                localStorage.setItem('userName', userName);
+                localStorage.setItem('birthdate', birthdate);
+                localStorage.setItem('signatureImage', signatureImage);
+                
                 window.location.href = 'third_page.html'; // 세 번째 페이지로 이동
             }
         });
