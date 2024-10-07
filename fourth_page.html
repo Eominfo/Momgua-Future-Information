@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 정보 조회 서비스</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .fixed-frame {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            padding: 10px 0;
+        }
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+        }
+        .left-content, .right-content {
+            width: 45%;
+            padding: 20px;
+        }
+        .left-content {
+            border-right: 2px solid black;
+        }
+        .scroll-button {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            background-color: #f00;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-frame">
+        ※ 신청한 당사자만 열람하세요 ※ 신청한 당사자만 열람하세요 ※ 신청한 당사자만 열람하세요 ※
+    </div>
+
+    <div class="content-wrapper">
+        <div class="left-content">
+            <h2>몸과 에옴 미래 정보</h2>
+            <p>2024: 스페이스바를 누르면 멈추는게 아니라 다른 영상이 원래 있던 영상을 밀어낸다.</p>
+            <p>2024 상반기: 게임인가. 게임이면 어떤 게임인가? 우리가 우리의 운명을 알고 고민하면서 선택하는 게임인가.</p>
+            <!-- 필요한 내용을 추가하세요 -->
+        </div>
+        <div class="right-content">
+            <h2>결과</h2>
+            <p>뭘 어찌말해야할지 모르겠다.</p>
+            <p>되는데로 씨부리시다. 어차피 이거 모두 블러처리 된다구.</p>
+            <!-- 필요한 내용을 추가하세요 -->
+        </div>
+    </div>
+
+    <button class="scroll-button" onclick="alert('읽으신 후 완료 클릭!')">읽으신 후 완료 클릭</button>
+
+    <div class="fixed-frame">
+        ※ 신청한 당사자만 열람하세요 ※ 신청한 당사자만 열람하세요 ※ 신청한 당사자만 열람하세요 ※
+    </div>
+
+    <script>
+        // 스크롤을 끝까지 내리면 버튼이 보이도록 처리
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const button = document.querySelector('.scroll-button');
+
+            if (scrollPosition >= documentHeight) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
