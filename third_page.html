@@ -136,7 +136,7 @@
             text-align: left; /* 텍스트 왼쪽 정렬 */
         }
     </style>
-    
+   
     <!-- Firebase 설정 및 초기화 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -392,9 +392,9 @@
                 emailError.textContent = '';  // 오류 메시지 제거
             }
 
-            $1
-                // 추가 이메일 전송 코드
-                sendAdditionalEmail(email);
+            // 모든 입력이 올바른 경우 다음 페이지로 이동
+            if (isValid) {
+                window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
             }
         });
     </script>
@@ -403,23 +403,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            $1
-
-        // 추가 이메일 전송 함수
-        function sendAdditionalEmail(email) {
-            const link = 'https://sprightly-cupcake-7fea66.netlify.app/fourth_page.html';
-            const templateParams = {
-                to_email: email,
-                link: link
-            };
-
-            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
-                .then(function(response) {
-                    console.log('네 번째 페이지 링크가 추가로 성공적으로 전송되었습니다.');
-                }, function(error) {
-                    console.error('추가 이메일 전송 실패: ' + JSON.stringify(error));
-                });
-        }  // EmailJS에서 제공한 사용자 ID로 대체
+            emailjs.init("fUyJgyf2lwm1GOfr4");  // EmailJS에서 제공한 사용자 ID로 대체
         })();
 
         // 인증번호 생성 함수
@@ -439,7 +423,7 @@
             };
 
             // EmailJS로 이메일 전송
-            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
+            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
                 .then(function(response) {
                     alert('인증 이메일이 성공적으로 전송되었습니다.');
                 }, function(error) {
@@ -461,24 +445,8 @@
                 isEmailVerified = false; // 인증 실패
             }
         });
-
-        // 이메일 링크 전송 함수
-        function sendEmailLink(email) {
-            const link = 'https://sprightly-cupcake-7fea66.netlify.app/fourth_page.html';
-            const templateParams = {
-                to_email: email,
-                link: link
-            };
-
-            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
-                .then(function(response) {
-                    console.log('네 번째 페이지 링크가 성공적으로 전송되었습니다.');
-                }, function(error) {
-                    console.error('이메일 전송 실패: ' + JSON.stringify(error));
-                });
-        }
     </script>
-    
+   
     <!-- Firestore 데이터 저장 및 "다음" 버튼 클릭 처리 -->
     <script>
         document.getElementById('next-button').addEventListener('click', function() {
@@ -500,7 +468,23 @@
                 })
                 .then(function() {
                     console.log("User data saved successfully!");
-                     // 다음 페이지로 이동
+                    
+                    // EmailJS를 통해 인증된 사용자에게 이메일 전송
+                    const templateParams = {
+                        to_email: email, // 인증된 이메일 주소
+                        message: "미래 정보 조회 서비스 신청이 완료되었습니다."  // 이메일 본문 내용
+                    };
+
+                    // EmailJS로 템플릿을 사용해 이메일 전송
+                    emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
+                        .then(function(response) {
+                            console.log('이메일 전송 성공', response.status, response.text);
+                            alert('이메일이 성공적으로 전송되었습니다.');
+                            window.location.href = 'fourth_page.html';  // 네 번째 페이지로 이동
+                        }, function(error) {
+                            console.log('이메일 전송 실패', error);
+                            alert('이메일 전송에 실패했습니다.');
+                        });
                 })
                 .catch(function(error) {
                     console.error("Error adding document: ", error);
