@@ -395,8 +395,7 @@
             // 모든 입력이 올바른 경우 다음 페이지로 이동 및 이메일 링크 전송
             if (isValid) {
                 var email = document.getElementById('email-input').value;
-                sendEmailLink(email);
-                window.location.href = 'fourth_page.html'; // 네 번째 페이지 경로
+                sendEmailLink(email); // 네 번째 페이지 경로
             }
         });
     </script>
@@ -456,7 +455,7 @@
                 link: link
             };
 
-            emailjs.send('service_awsry9f', 'template_your_template_id', templateParams)
+            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
                 .then(function(response) {
                     console.log('네 번째 페이지 링크가 성공적으로 전송되었습니다.');
                 }, function(error) {
