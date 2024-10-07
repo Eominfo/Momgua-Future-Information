@@ -392,10 +392,9 @@
                 emailError.textContent = '';  // 오류 메시지 제거
             }
 
-            // 모든 입력이 올바른 경우 다음 페이지로 이동 및 이메일 링크 전송
-            if (isValid) {
-                var email = document.getElementById('email-input').value;
-                sendEmailLink(email);
+            $1
+                // 추가 이메일 전송 코드
+                sendAdditionalEmail(email);
             }
         });
     </script>
@@ -404,7 +403,23 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("fUyJgyf2lwm1GOfr4");  // EmailJS에서 제공한 사용자 ID로 대체
+            $1
+
+        // 추가 이메일 전송 함수
+        function sendAdditionalEmail(email) {
+            const link = 'https://sprightly-cupcake-7fea66.netlify.app/fourth_page.html';
+            const templateParams = {
+                to_email: email,
+                link: link
+            };
+
+            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
+                .then(function(response) {
+                    console.log('네 번째 페이지 링크가 추가로 성공적으로 전송되었습니다.');
+                }, function(error) {
+                    console.error('추가 이메일 전송 실패: ' + JSON.stringify(error));
+                });
+        }  // EmailJS에서 제공한 사용자 ID로 대체
         })();
 
         // 인증번호 생성 함수
