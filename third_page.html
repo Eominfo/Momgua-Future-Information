@@ -395,7 +395,7 @@
             // 모든 입력이 올바른 경우 다음 페이지로 이동 및 이메일 링크 전송
             if (isValid) {
                 var email = document.getElementById('email-input').value;
-                sendEmailLink(email); // 네 번째 페이지 경로
+                sendEmailLink(email);
             }
         });
     </script>
@@ -424,7 +424,7 @@
             };
 
             // EmailJS로 이메일 전송
-            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
+            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
                 .then(function(response) {
                     alert('인증 이메일이 성공적으로 전송되었습니다.');
                 }, function(error) {
@@ -455,7 +455,7 @@
                 link: link
             };
 
-            emailjs.send('service_awsry9f', 'template_twk0mr3', templateParams)
+            emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
                 .then(function(response) {
                     console.log('네 번째 페이지 링크가 성공적으로 전송되었습니다.');
                 }, function(error) {
@@ -485,7 +485,7 @@
                 })
                 .then(function() {
                     console.log("User data saved successfully!");
-                    window.location.href = 'fourth_page.html'; // 다음 페이지로 이동
+                     // 다음 페이지로 이동
                 })
                 .catch(function(error) {
                     console.error("Error adding document: ", error);
