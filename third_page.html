@@ -471,19 +471,18 @@
                     
                     // EmailJS를 통해 인증된 사용자에게 이메일 전송
                     const templateParams = {
-                        to_email: email, // 인증된 이메일 주소
-                        message: "미래 정보 조회 서비스 신청이 완료되었습니다."  // 이메일 본문 내용
+                        to_email: emailInput, // 인증된 이메일 주소
+                        message: "몸과 에옴 미래정보조회서비스 링크입니다."  // 이메일 본문 내용
                     };
 
                     // EmailJS로 템플릿을 사용해 이메일 전송
                     emailjs.send('service_awsry9f', 'template_l5tjetr', templateParams)
                         .then(function(response) {
-                            console.log('이메일 전송 성공', response.status, response.text);
                             alert('이메일이 성공적으로 전송되었습니다.');
                             window.location.href = 'fourth_page.html';  // 네 번째 페이지로 이동
                         }, function(error) {
                             console.log('이메일 전송 실패', error);
-                            alert('이메일 전송에 실패했습니다.');
+                            alert('이메일 전송에 실패했습니다. 오류: ' + JSON.stringify(error));
                         });
                 })
                 .catch(function(error) {
