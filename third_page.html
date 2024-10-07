@@ -433,12 +433,14 @@
 
         // 인증 완료 버튼 클릭 시 인증번호 확인
         document.getElementById('email-complete-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('email-input').value; // 사용자가 입력한 이메일
             const enteredCode = document.getElementById('verification-input').value; // 사용자가 입력한 인증번호
             const storedCode = localStorage.getItem('verificationCode'); // 로컬 스토리지에서 인증번호 가져오기
 
             if (enteredCode === storedCode) {
                 alert('이메일 인증이 완료되었습니다.');
                 localStorage.setItem('emailVerified', 'true'); // 인증 성공 시 상태 저장
+                localStorage.setItem('userEmail', emailInput); // 사용자의 이메일 주소 저장
                 isEmailVerified = true; // 인증 성공
             } else {
                 alert('잘못된 인증번호입니다.');
