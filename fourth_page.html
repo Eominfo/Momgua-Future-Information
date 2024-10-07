@@ -113,6 +113,7 @@
                     .then(function(response) {
                         console.log('이메일 전송 성공', response.status, response.text);
                         alert('이메일이 성공적으로 전송되었습니다.');
+                        window.location.href = 'index.html'; // index.html로 이동
                     }, function(error) {
                         console.log('이메일 전송 실패', error);
                         alert('이메일 전송에 실패했습니다. 오류: ' + JSON.stringify(error));
