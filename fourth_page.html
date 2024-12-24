@@ -57,6 +57,7 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            z-index: 1000;
             font-size: 1.2em;
         }
     </style>
@@ -246,16 +247,24 @@
             }
         }
 
-        // 스크롤을 끝까지 내리면 버튼이 보이도록 처리
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY + window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const button = document.querySelector('.scroll-button');
+window.addEventListener('scroll', function() {
+        const scrollPosition = Math.max(
+            document.body.scrollTop,
+            document.documentElement.scrollTop
+        ) + window.innerHeight;
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+        );
+        const button = document.querySelector('.scroll-button');
 
-            if (scrollPosition >= documentHeight) {
-                button.style.display = 'block';
-            } else {
-                button.style.display = 'none';
+        // 디버깅 메시지 추가
+        console.log('스크롤 위치:', scrollPosition, '문서 높이:', documentHeight);
+
+        if (scrollPosition >= documentHeight - 10) { // 여유값 추가
+            button.style.display = 'block';
+        } else {
+            button.style.display = 'none';
             }
         });
     </script>
